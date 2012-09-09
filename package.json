@@ -1,0 +1,35 @@
+{
+  "name": "cushion-cli",
+  "description": "Command line tool for cushion couchdb API.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/stefanjudis/cushion-cli",
+  "author": {
+    "name": "stefan judis",
+    "email": "stefanjudis@gmail.com",
+    "url": "www.stefanjudis.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stefanjudis/cushion-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stefanjudis/cushion-cli/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/stefanjudis/cushion-cli/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/cushion-cli",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.15"
+  },
+  "keywords": []
+}
