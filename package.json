@@ -8,6 +8,10 @@
     "email": "stefanjudis@gmail.com",
     "url": "www.stefanjudis.de"
   },
+  "preferGlobal": "true",
+  "bin": {
+    "cushion": "./lib/cushion-cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/stefanjudis/cushion-cli.git"
