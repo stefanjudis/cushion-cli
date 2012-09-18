@@ -18,7 +18,7 @@
     test.ifError(value)
 */
 var connectionCallbacks = require('../lib/connectionCallbacks'),
-    exports = module.exports,
+    exports = module.exports;
 
 exports.commands = {
   'simpleCallbackError': function(test) {
