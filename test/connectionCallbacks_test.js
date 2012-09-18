@@ -22,15 +22,19 @@ var connectionCallbacks = require('../lib/connectionCallbacks'),
 
 exports.commands = {
   'simpleCallbackError': function(test) {
-    var _log = console.log;
+    var _log = console.log,
+        error = {
+          'error': 'error',
+          'reason': 'reason'
+        };
 
     console.log = function(chunk) {
       test.expect(1);
-      test.equal(chunk, 'error', 'Error should be displayed');
+      test.equal(chunk, "Command not working...\nError is: error\nWith the reason: reason", 'Error should be displayed properly');
       test.done();
     };
 
-    connectionCallbacks.simpleCallback('error', '');
+    connectionCallbacks.simpleCallback(error, '');
     console.log = _log;
   },
   'simpleCallbackResponse': function(test) {
