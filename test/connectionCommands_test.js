@@ -18,19 +18,29 @@
     test.ifError(value)
 */
 var connectionCommands = require('../lib/connectionCommands'),
-    exports = module.exports,
+    exports = module.exports;
 
 exports.commands = {
-  'simpleCommand': function(test) {
-    var _log = console.log;
+  'commandExists': function(test) {
+      test.expect(3);
+      test.equal(
+        connectionCommands.commandExists('version'),
+        true,
+        'Function "version" should exist'
+      );
 
-    console.log = function(chunk) {
-      test.expect(1);
-      test.equal(chunk, 'error', 'Error should be displayed');
+      test.equal(
+        connectionCommands.commandExists('createAdmin'),
+        true,
+        'Function "createAdmin" should exist'
+      );
+
+      test.equal(
+        connectionCommands.commandExists('deleteAdmin'),
+        true,
+        'Function "deleteAdmin" should exist'
+      );
+
       test.done();
-    };
-
-    connectionCallbacks.simpleCallback('error', '');
-    console.log = _log;
   }
 };
