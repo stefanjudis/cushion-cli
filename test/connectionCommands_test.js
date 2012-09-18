@@ -18,11 +18,12 @@
     test.ifError(value)
 */
 var connectionCommands = require('../lib/connectionCommands'),
-    exports = module.exports;
+    exports = module.exports,
+    cushion = require('cushion');
 
 exports.commands = {
   'commandExists': function(test) {
-      test.expect(3);
+      test.expect(4);
       test.equal(
         connectionCommands.commandExists('version'),
         true,
@@ -41,6 +42,22 @@ exports.commands = {
         'Function "deleteAdmin" should exist'
       );
 
+      test.equal(
+        connectionCommands.commandExists('abcdef'),
+        false,
+        'Function "deleteAdmin" should exist'
+      );
+
       test.done();
+  },
+  'command': function(test) {
+    var cli = {};
+        cli.cushion = {
+          'testCommand': function() {
+            test.done();
+          }
+        };
+
+    connectionCommands.command('testCommand', cli);
   }
 };
