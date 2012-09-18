@@ -23,7 +23,7 @@ var connectionCommands = require('../lib/connectionCommands'),
 
 exports.commands = {
   'commandExists': function(test) {
-      test.expect(4);
+      test.expect(5);
       test.equal(
         connectionCommands.commandExists('version'),
         true,
@@ -40,6 +40,12 @@ exports.commands = {
         connectionCommands.commandExists('deleteAdmin'),
         true,
         'Function "deleteAdmin" should exist'
+      );
+
+      test.equal(
+        connectionCommands.commandExists('activeTasks'),
+        true,
+        'Function "activeTasks" should exist'
       );
 
       test.equal(
