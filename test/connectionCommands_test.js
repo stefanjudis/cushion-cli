@@ -23,7 +23,7 @@ var connectionCommands = require('../lib/connectionCommands'),
 
 exports.commands = {
   'commandExists': function(test) {
-      test.expect(5);
+      test.expect(6);
       test.equal(
         connectionCommands.commandExists('version'),
         true,
@@ -44,6 +44,12 @@ exports.commands = {
 
       test.equal(
         connectionCommands.commandExists('activeTasks'),
+        true,
+        'Function "activeTasks" should exist'
+      );
+
+      test.equal(
+        connectionCommands.commandExists('listDatabases'),
         true,
         'Function "activeTasks" should exist'
       );
