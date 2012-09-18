@@ -19,7 +19,6 @@
 */
 var connectionCallbacks = require('../lib/connectionCallbacks'),
     exports = module.exports,
-    util = require('util');
 
 exports.commands = {
   'simpleCallbackError': function(test) {
