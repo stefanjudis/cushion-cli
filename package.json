@@ -10,7 +10,7 @@
   },
   "preferGlobal": "true",
   "bin": {
-    "cushion": "./lib/cushion-cli.js"
+    "cushion": "./bin/cushion"
   },
   "repository": {
     "type": "git",
@@ -33,10 +33,12 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "grunt": "~0.3.15",
-    "cushion": ">= 1.5.4",
-    "cli-color": ">= 0.1.7",
-    "cli-prompt": ">= 0.1.0"
+    "grunt": "~0.3.15"
   },
-  "keywords": []
+  "keywords": [],
+  "dependencies": {
+    "cushion": ">= 1.5.5",
+    "cli-color": ">= 0.1.7",
+    "cli-prompt": "~0.1.0"
+  }
 }

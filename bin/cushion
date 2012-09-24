@@ -8,7 +8,7 @@
  * Licensed under the MIT license.
  */
 
-var cli = require('./cliRunner'),
+var cli = require('../lib/cliRunner'),
     args = process.argv;
 
 if (args[2]) {
