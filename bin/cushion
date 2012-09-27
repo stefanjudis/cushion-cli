@@ -14,5 +14,5 @@ var cli = require('../lib/cliRunner'),
 if (args[2]) {
   console.log('immediately execution of something');
 } else {
-  cli.initPrompt();
+  cli.init();
 }
