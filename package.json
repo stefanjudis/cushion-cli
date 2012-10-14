@@ -39,6 +39,6 @@
   "dependencies": {
     "cushion": ">= 1.5.5",
     "cli-color": ">= 0.1.7",
-    "prompt": "~0.2.7"
+    "node.extend": "~1.0.0"
   }
 }
