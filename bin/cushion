@@ -12,7 +12,7 @@ var cli = require('../lib/cliRunner'),
     args = process.argv;
 
 if (args[2]) {
-  console.log('immediately execution of something');
+  console.log('immediately execution of something later');
 } else {
   cli.init();
 }
