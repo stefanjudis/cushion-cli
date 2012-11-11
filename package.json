@@ -39,6 +39,7 @@
   "dependencies": {
     "cushion": ">= 1.5.5",
     "cli-color": ">= 0.1.7",
-    "node.extend": "~1.0.0"
+    "node.extend": "~1.0.0",
+    "prettyjson": "~0.7.1"
   }
 }
