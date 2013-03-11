@@ -1,19 +1,17 @@
-### Your are a command line hero. And you like CouchDB. Maybe cushion-cli is something for you.
+# Your are a command line hero. And you like CouchDB. Maybe cushion-cli is something for you.
 
-# cushion-cli - Command line tool for Handling CouchDB
+### Command line tool for cushion CouchDB API. It is based on the node.js CouchDB-Api [Cushion](https://github.com/Zoddy/cushion).
 
-Command line tool for cushion CouchDB API. It is based on the node.js CouchDB-Api [Cushion](https://github.com/Zoddy/cushion).
 
 ## Getting Started
 Install the module with: `npm install -g cushion-cli`
 
 After that the global `cushion` command should be available in your terminal. Call it and you will be introduced by the cushion setup for a connection. You will be asked for host, port and if you want to setup a connection as an admin or not. If so you need to enter you admin name and password.
 
-## Documentation
 
-### General Commands ( not depending on level and usable all the time ):
+## General Commands ( not depending on level and usable all the time ):
 
-#### connection
+### connection
 
 **Description:** Switch to connection level.
 
@@ -28,7 +26,7 @@ document ✩ [documentName] ✩ -> connection
 connection ✩ [host] ✩ ->
 ```
 
-#### database [databaseName]
+### database [databaseName]
 **Description:** Switch to database level.
 
 Jump to database level with command. If you are at connection level you need to set up a name. That means if you want to set up a new database switch the new name only and call the ```create``` command afterwards. If you want to work with an existing one type in database and enter first letter and press **TAB** . 
@@ -50,7 +48,7 @@ document ✩ [documentName] ✩ -> database
 database ✩ [databaseName] ✩ ->
 ```
 
-#### exit
+### exit
 
 **Description:** Stop cushion and to something else.
 
@@ -61,7 +59,7 @@ conncetion ✩ [host] ✩ -> exit
 Bye bye - happy couching
 ```
 
-#### help [command]
+### help [command]
 
 **Description:** Look for help for specific command.
 
@@ -82,7 +80,7 @@ Command:
 connection ✩ [host] ✩ ->
 ```
 
-#### listDatabases
+### listDatabases
 
 **Description:** Get list of all databases of current CouchDB connection.
 
@@ -104,7 +102,7 @@ connection ✩ [host] ✩ ->
 
 ```
 
-#### listUsers
+### listUsers
 
 **Description:** Get list of all users of connected CouchDB.
 
@@ -123,7 +121,7 @@ connection ✩ [host] ✩ ->
 
 ```
 
-#### user [userName]
+### user [userName]
 
 **Description:** Switch to user level.
 
@@ -140,7 +138,7 @@ connection ✩ [host] ✩ -> user [userName]
 user ✩ [userName] ✩ ->
 ```
 
-##### [..]
+#### [..]
 
 **Description:** Switch to parent level.
 
@@ -154,10 +152,18 @@ connection ✩ [host] ✩ ->
 ```
 
 
-### Connection Level ( "connection ✩ [host] ✩ ->" )
+## Connection Level Commands ( "connection ✩ [host] ✩ ->" )
+…
 
-#### Commands:
 
+## Database Level Commands ( "database ✩ [databaseName] ✩ ->" )
+…
+
+
+## Document Level Commands ( "document ✩ [documentName] ✩ ->" )
+…
+
+## User Level Commands ( "connection ✩ [host] ✩ ->" )
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
