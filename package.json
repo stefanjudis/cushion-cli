@@ -6,7 +6,7 @@
   "author": {
     "name": "stefan judis",
     "email": "stefanjudis@gmail.com",
-    "url": "www.stefanjudis.de"
+    "url": "http://www.stefanjudis.de"
   },
   "preferGlobal": "true",
   "bin": {
@@ -27,7 +27,7 @@
   ],
   "main": "lib/cushion-cli",
   "engines": {
-    "node": ">= 0.6.0"
+    "node": ">= 0.8.9"
   },
   "scripts": {
     "test": "grunt test"
