@@ -11,9 +11,7 @@ After that the global `cushion` command should be available in your terminal. Ca
 
 ## Documentation
 
-### General Command ( not depending on level and usable all the time )
-
-#### Commands
+### General Commands ( not depending on level and usable all the time ):
 
 #### connection
 
