@@ -23,7 +23,7 @@ No matter at which level you are, you can jump to connection level to use specif
 
 After switching to connection level there will be a few new connection specific commands. So check them out by only pressing **TAB**.
 
-** Example: **
+**Example:**
 
 ```
 document ✩ [documentName] ✩ -> connection
@@ -41,7 +41,7 @@ After switching to database level there will be a few new database specific comm
 
 If you are at document level use this command to go back to database level. Alternatively you could use ```..```.
 
-** Example: **
+**Example:**
 
 ```
 connection ✩ [host] ✩ -> database [databaseName]
@@ -56,7 +56,7 @@ database ✩ [databaseName] ✩ ->
 
 **Description:** Stop cushion and to something else.
 
-** Example: **
+**Example:**
 
 ```
 conncetion ✩ [host] ✩ -> exit
@@ -71,7 +71,7 @@ Bye bye - happy couching
 
 **! This command is supported by auto-completion !**
 
-** Example: **
+**Example:**
 
 ```
 connection ✩ [host] ✩ -> help version
@@ -88,7 +88,7 @@ connection ✩ [host] ✩ ->
 
 **Description:** Get list of all databases of current CouchDB connection.
 
-** Example: **
+**Example:**
 
 ```
 connection ✩ [host] ✩ -> listDatabases
@@ -110,7 +110,7 @@ connection ✩ [host] ✩ ->
 
 **Description:** Get list of all users of connected CouchDB.
 
-** Example: **
+**Example:**
 
 ```
 connection ✩ [host] ✩ -> listUsers
@@ -135,7 +135,7 @@ Enter a given name for switching either to an existing user or for creating a ne
 
 After switching to user level there will be a few new user specific commands. So check them out by only pressing **TAB**.
 
-** Example: **
+**Example:**
 
 ```
 connection ✩ [host] ✩ -> user [userName]
@@ -148,7 +148,7 @@ user ✩ [userName] ✩ ->
 
 If you are at document level you will switch to database level. Database and user level will switch to connection level. Command at connection level will do nothing.
 
-** Example: **
+**Example:**
 
 ```
 database ✩ [databaseName] ✩ -> ..
@@ -157,10 +157,9 @@ connection ✩ [host] ✩ ->
 
 
 ### Connection Level ( "connection ✩ [host] ✩ ->" )
+
 #### Commands:
 
-## Examples
-_(Coming soon)_
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
@@ -169,5 +168,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 _(Nothing yet)_
 
 ## License
-Copyright (c) 2012 stefan judis  
+Copyright (c) 2013 stefan judis  
 Licensed under the MIT license.
