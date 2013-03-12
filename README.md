@@ -227,6 +227,34 @@ Response:
 connection ✩ 127.0.0.1 ✩ ->
 ```
 
+### createAdmin [name] [password]
+
+**Description:** Create a new admin. You have got the possibilities to do in one step or to run a prompt dialog asking for name and password.
+
+**Examples:**
+
+```
+connection ✩ [host] ✩ -> createAdmin
+What is the name of admin? john
+What is the password for john? fancyPassword
+Admin was created.
+
+Response:
+true
+
+connection ✩ [host] ✩ ->
+```
+
+```
+connection ✩ [host] ✩ -> createAdmin john fancyPassword
+Admin was created.
+
+Response:
+true
+
+connection ✩ [host] ✩ ->
+```
+
 ## Database Level Commands ( "database ✩ [databaseName] ✩ ->" )
 …
 
