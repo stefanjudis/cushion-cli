@@ -188,7 +188,7 @@ httpd_design_handlers:
   _info:    {couch_httpd_db,   handle_design_info_req}
   _list:    {couch_httpd_show, handle_view_list_req}
   …
-  lot's of config information here
+  lot of fancy information here
   …
   util_driver_dir:    /opt/local/lib/couchdb/erlang/lib/couch-1.1.1/priv/lib
   view_index_dir:     /opt/local/var/lib/couchdb
@@ -298,7 +298,7 @@ You have the following saved connections:
 (1) local -> 127.0.0.1
 (2) foo -> 127.0.0.1
 …
-…
+lot of fancy information here
 …
 connection ✩ [host] ✩ -> deleteConnection foo
 
@@ -323,6 +323,37 @@ Connection foo deleted.
 
 connection ✩ [host] ✩ ->
 
+```
+
+### log [bytes]
+
+**Description:** Retrieve the tail of the server logs of connected CouchDB. Without set bytes param you will get 1000 Bytes of the tail.
+
+**Examples:**
+
+```
+connection ✩ [host] ✩ -> log
+
+Response:
+T] [info] [<0.23322.8>] 127.0.0.1 - - 'GET' /_config 200
+[Tue, 12 Mar 2013 21:58:41 GMT] [info] [<0.31614.8>] 127.0.0.1 - - 'GET' / 200
+…
+lot of fancy information here
+…
+[Tue, 12 Mar 2013 22:16:03 GMT] [info] [<0.8336.9>] 127.0.0.1 - - 'GET' / 200
+
+
+connection ✩ [host] ✩ ->
+```
+
+```
+connection ✩ [host] ✩ -> log 32
+
+Response:
+0.1 - - 'GET' /_log?bytes=8 200
+
+
+connection ✩ [host] ✩ ->
 ```
 
 ## Database Level Commands ( "database ✩ [databaseName] ✩ ->" )
