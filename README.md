@@ -100,7 +100,6 @@ Response:
 - baz
 
 connection ✩ [host] ✩ ->
-
 ```
 
 ### listUsers
@@ -119,7 +118,6 @@ Response:
 - bar
 
 connection ✩ [host] ✩ ->
-
 ```
 
 ### user [userName]
@@ -305,7 +303,6 @@ connection ✩ [host] ✩ -> deleteConnection foo
 Connection foo deleted.
 
 connection ✩ [host] ✩ ->
-
 ```
 
 ```
@@ -315,7 +312,7 @@ You have the following saved connections:
 (1) local -> 127.0.0.1
 (2) foo -> 127.0.0.1
 …
-…
+a lot of fancy information here
 …
 connection ✩ [host] ✩ -> deleteConnection 2
 
@@ -342,7 +339,6 @@ lot of fancy information here
 …
 [Tue, 12 Mar 2013 22:16:03 GMT] [info] [<0.8336.9>] 127.0.0.1 - - 'GET' / 200
 
-
 connection ✩ [host] ✩ ->
 ```
 
@@ -351,7 +347,6 @@ connection ✩ [host] ✩ -> log 32
 
 Response:
 0.1 - - 'GET' /_log?bytes=8 200
-
 
 connection ✩ [host] ✩ ->
 ```
@@ -446,7 +441,6 @@ couchdb:
     max:         null
 
 connection ✩ [host] ✩ ->
-    
 ```
 
 ### uuids [numberOfUuids]
