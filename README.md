@@ -37,12 +37,13 @@ After switching to database level there will be a few new database specific comm
 
 If you are at document level use this command to go back to database level. Alternatively you could use ```..```.
 
-**Example:**
+**Examples:**
 
 ```
 connection ✩ [host] ✩ -> database [databaseName]
 database ✩ [databaseName] ✩ ->
 ```
+
 ```
 document ✩ [documentName] ✩ -> database
 database ✩ [databaseName] ✩ ->
@@ -153,8 +154,78 @@ connection ✩ [host] ✩ ->
 
 
 ## Connection Level Commands ( "connection ✩ [host] ✩ ->" )
-…
 
+### activeTaks
+
+**Description:** Get list of active tasks.
+
+**Example:**
+
+```
+connection ✩ [host] ✩ -> activeTasks
+
+Response:
+(empty array)
+
+connection ✩ 127.0.0.1 ✩ ->
+```
+
+### config [section] [option] [value]
+
+**Description:** Get or set config information.
+
+The parameters section, option and value are optional. So if you want to retrieve all config information just call ```config``` without any parameters. If you want to retrieve config information for a particular section call ```config [section]``` and so on. If you want to **set** any config option just set the value as third parameter ( 4th example ).
+
+**Examples:**
+
+```
+onnection ✩ [host] ✩ -> config
+
+Response:
+httpd_design_handlers:
+  _info:    {couch_httpd_db,   handle_design_info_req}
+  _list:    {couch_httpd_show, handle_view_list_req}
+  …
+  lot's of config information here
+  …
+  util_driver_dir:    /opt/local/lib/couchdb/erlang/lib/couch-1.1.1/priv/lib
+  view_index_dir:     /opt/local/var/lib/couchdb
+
+connection ✩ [host] ✩ ->
+```
+
+```
+connection ✩ [host] ✩ -> config stats
+
+Response:
+rate:    1000
+samples: [0, 60, 300, 900]
+
+connection ✩ host ✩ ->
+```
+
+```
+connection ✩ [host] ✩ -> config stats rate
+
+Response:
+1000
+
+connection ✩ [host] ✩ ->
+```
+
+```
+connection ✩ [host] ✩ -> config ssl port 1000
+
+Response:
+true
+
+connection ✩ [host] ✩ -> config ssl port
+
+Response:
+1000
+
+connection ✩ 127.0.0.1 ✩ ->
+```
 
 ## Database Level Commands ( "database ✩ [databaseName] ✩ ->" )
 …
@@ -163,7 +234,7 @@ connection ✩ [host] ✩ ->
 ## Document Level Commands ( "document ✩ [documentName] ✩ ->" )
 …
 
-## User Level Commands ( "connection ✩ [host] ✩ ->" )
+## User Level Commands ( "user ✩ [userName] ✩ ->" )
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
