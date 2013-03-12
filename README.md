@@ -255,6 +255,33 @@ true
 connection ✩ [host] ✩ ->
 ```
 
+### deleteAdmin [name]
+
+**Description:** Delete an existing admin. You have got the possibilities to do in one step or to run a prompt dialog asking for admin name.
+
+**Examples:**
+
+```
+connection ✩ [host] ✩ -> deleteAdmin
+What is the name of admin? john
+Admin was deleted.
+
+Response:
+true
+
+connection ✩ [host] ✩ ->
+```
+
+```
+connection ✩ [host] ✩ -> deleteAdmin john
+Admin was deleted.
+
+Response:
+true
+
+connection ✩ [host] ✩ ->
+```
+
 ## Database Level Commands ( "database ✩ [databaseName] ✩ ->" )
 …
 
