@@ -176,6 +176,8 @@ connection ✩ 127.0.0.1 ✩ ->
 
 The parameters section, option and value are optional. So if you want to retrieve all config information just call ```config``` without any parameters. If you want to retrieve config information for a particular section call ```config [section]``` and so on. If you want to **set** any config option just set the value as third parameter ( 4th example ).
 
+**! This command is supported by auto-completion for section !**
+
 **Examples:**
 
 ```
@@ -280,6 +282,47 @@ Response:
 true
 
 connection ✩ [host] ✩ ->
+```
+### deleteConnection [name|index]
+
+**Description:** If you set up a new connection you have the possibility to save the connection for later usage. Additional to that you can save connection by calling the ```saveConnection``` command. To delete useless connection from storage use this command.
+
+**! This command is supported by auto-completion for the connection name !**
+
+**Examples:**
+
+```
+Connection file found.
+You have the following saved connections:
+
+(1) local -> 127.0.0.1
+(2) foo -> 127.0.0.1
+…
+…
+…
+connection ✩ [host] ✩ -> deleteConnection foo
+
+Connection foo deleted.
+
+connection ✩ [host] ✩ ->
+
+```
+
+```
+Connection file found.
+You have the following saved connections:
+
+(1) local -> 127.0.0.1
+(2) foo -> 127.0.0.1
+…
+…
+…
+connection ✩ [host] ✩ -> deleteConnection 2
+
+Connection foo deleted.
+
+connection ✩ [host] ✩ ->
+
 ```
 
 ## Database Level Commands ( "database ✩ [databaseName] ✩ ->" )
