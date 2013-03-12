@@ -188,7 +188,7 @@ httpd_design_handlers:
   _info:    {couch_httpd_db,   handle_design_info_req}
   _list:    {couch_httpd_show, handle_view_list_req}
   …
-  lot of fancy information here
+  a lot of fancy information here
   …
   util_driver_dir:    /opt/local/lib/couchdb/erlang/lib/couch-1.1.1/priv/lib
   view_index_dir:     /opt/local/var/lib/couchdb
@@ -298,7 +298,7 @@ You have the following saved connections:
 (1) local -> 127.0.0.1
 (2) foo -> 127.0.0.1
 …
-lot of fancy information here
+a lot of fancy information here
 …
 connection ✩ [host] ✩ -> deleteConnection foo
 
@@ -426,6 +426,76 @@ connection ✩ host ✩ ->
 
 ### stats
 
+**Description:** Get server statistics.
+
+**Example:**
+
+```
+connection ✩ [host] ✩ -> stats
+
+Response:
+couchdb:
+  open_databases:
+    description: number of open databases
+    current:     null
+    sum:         null
+    …
+    a lot of fancy information here
+    …
+    min:         null
+    max:         null
+
+connection ✩ [host] ✩ ->
+    
+```
+
+### uuids [numberOfUuids]
+
+**Description:** Create CouchDB uuids.
+
+**Examples:**
+
+```
+connection ✩ [host] ✩ -> uuids
+
+Response:
+- 4be0aced2a9fba4d4514ceb56e000d6b
+
+connection ✩ [host] ✩ ->
+```
+
+```
+connection ✩ [host] ✩ -> uuids 10
+
+Response:
+- 4be0aced2a9fba4d4514ceb56e001cee
+- 4be0aced2a9fba4d4514ceb56e002286
+- 4be0aced2a9fba4d4514ceb56e003050
+- 4be0aced2a9fba4d4514ceb56e00399e
+- 4be0aced2a9fba4d4514ceb56e003afd
+- 4be0aced2a9fba4d4514ceb56e0045fd
+- 4be0aced2a9fba4d4514ceb56e00510b
+- 4be0aced2a9fba4d4514ceb56e005973
+- 4be0aced2a9fba4d4514ceb56e0067a0
+- 4be0aced2a9fba4d4514ceb56e006be4
+
+connection ✩ [host] ✩ ->
+```
+
+### version
+
+**Description:** Get version of connected CouchDB.
+
+**Example:**
+
+```
+connection ✩ [host] ✩ -> version
+
+Response:
+1.1.1
+
+connection ✩ [host] ✩ ->
+```
 
 ## Database Level Commands ( "database ✩ [databaseName] ✩ ->" )
 …
