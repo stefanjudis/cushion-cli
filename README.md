@@ -283,7 +283,7 @@ connection ✩ [host] ✩ ->
 ```
 ### deleteConnection [name|index]
 
-**Description:** If you set up a new connection you have the possibility to save the connection for later usage. Additional to that you can save connection by calling the ```saveConnection``` command. To delete useless connection from storage use this command.
+**Description:** If you set up a new connection you have the possibility to save the connection for later usage. Additional to that you can save connection by calling the [saveConnection](#saveconnection-name) command. To delete useless connection from storage use this command.
 
 **! This command is supported by auto-completion for the connection name !**
 
