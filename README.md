@@ -356,6 +356,77 @@ Response:
 connection ✩ [host] ✩ ->
 ```
 
+### restart
+
+**Description:** Restart the CouchDB. You have to be logged in as admin to do so.
+
+**Example:**
+
+```
+connection ✩ [host] ✩ -> restart
+
+Response:
+ok: true
+
+connection ✩ [host] ✩ ->
+```
+
+### saveConnection [name]
+
+**Description:** Save the connection for later usage. 
+
+**Example:**
+
+```
+connection ✩ [host] ✩ -> saveConnection foo
+
+Connection foo was saved.
+
+connection ✩ [host] ✩ ->
+```
+
+### showConnection
+
+**Description:** If you are at a new connection and you forgot what the settings was, this command will give you information about current connection.
+
+**Example:**
+
+```
+connection ✩ [host] ✩ -> showConnection
+
+Your current connection is:
+
+host -> 127.0.0.1
+port -> 5984
+username -> john
+password -> fancyPassword
+secure -> false
+path -> some/path/to/someWhere
+
+connection ✩ [host] ✩ ->
+```
+
+### showConnections
+
+**Description:** Get a list of all saved connections.
+
+**Example:**
+
+```
+connection ✩ [host] ✩ -> showConnections
+Connection file found.
+You have the following saved connections:
+
+(1) local -> 127.0.0.1
+(2) foo -> someHost
+(3) bar -> anotherHost
+
+connection ✩ host ✩ ->
+```
+
+### stats
+
+
 ## Database Level Commands ( "database ✩ [databaseName] ✩ ->" )
 …
 
