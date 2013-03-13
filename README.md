@@ -544,6 +544,25 @@ Doc4:            15-04000ead021dacbcf43a8c8969c5b2f1
 database ✩ [databaseName] ✩ ->
 ```
 
+### allViews [designName]
+
+**Description:** Get a list of views for design document.
+
+**! This command is supported by auto-completion for the design name !**
+
+**Example:**
+
+```
+database ✩ [databaseName] ✩ -> allViews foo
+This design document includes of 2 views.
+
+Response:
+- viewBar
+- viewBaz
+
+database ✩ [databaseName] ✩ ->
+```
+
 ### cleanup
 
 **Description:** Start [view cleanup](http://wiki.apache.org/couchdb/HTTP_view_API#View_Cleanup) for connected database.
