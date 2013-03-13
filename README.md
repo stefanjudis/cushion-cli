@@ -492,8 +492,262 @@ connection ✩ [host] ✩ ->
 ```
 
 ## Database Level Commands ( "database ✩ [databaseName] ✩ ->" )
+
+### allDocuments [param1] [param2] ...
+
+**Description:** Get a list of all documents given in selected database. Look for all possible param at [here](http://wiki.apache.org/couchdb/HTTP_Document_API#all_docs) at query parameters.
+
+**Example:**
+
+```
+database ✩ [databaseName] ✩ -> allDocuments
+This databases exists of 10 documents.
+Displayed result has an offset of 0
+
+Response:
+Doc1:            6-841ea3bec41a1ccbf776591dda80e1f9
+Doc2:            14-f65a9da7700c81a73d23985e7fe286b2
+_design/entries: 2-3b756e80956bb0ddff78dbd9a4468a3e
+Doc3:            19-819e98e81df4c835841e51b83749c918
 …
 
+database ✩ [databaseName] ✩ ->
+```
+
+```
+database ✩ [databaseName] ✩ -> allDocuments limit=3 startkey="_design/entries"
+This databases exists of 10 documents.
+Displayed result has an offset of 2
+
+Response:
+_design/entries: 2-3b756e80956bb0ddff78dbd9a4468a3e
+Doc3:            19-819e98e81df4c835841e51b83749c918
+Doc4:            15-04000ead021dacbcf43a8c8969c5b2f1
+
+database ✩ [databaseName] ✩ ->
+```
+
+### cleanup
+
+**Description:** Start [view cleanup](http://wiki.apache.org/couchdb/HTTP_view_API#View_Cleanup) for connected database.
+
+**Example:**
+
+```
+database ✩ [databaseName] ✩ -> cleanup
+
+Response:
+true
+
+database ✩ [databaseName] ✩ ->
+```
+
+### compact
+
+**Description:** Start [compaction](http://wiki.apache.org/couchdb/Compaction) for connected database.
+
+**Example:**
+
+```
+database ✩ [databaseName] ✩ -> compact
+
+Response:
+true
+
+database ✩ [databaseName] ✩ ->
+```
+
+### create
+
+**Description:** Create new database (if not exist) and set it in CouchDB. You need to be at database level to execute this command. 
+
+**Example:**
+
+```
+connection ✩ [host] ✩ -> database foo
+
+Switched to database foo
+
+database ✩ foo ✩ -> create
+
+Database created.
+
+database ✩ foo ✩ -> listDatabases
+
+CouchDB includes the following databases:
+
+Response:
+- _replicator
+- _users
+- db1
+- db2
+- foo
+
+database ✩ foo ✩ ->
+```
+
+### destroy
+
+**Description:** Delete given database and remove it from CouchDB. Switch to database level of an existing database and call ```destroy```command.
+
+***Example:***
+
+```
+connection ✩ [host] ✩ -> listDatabases
+
+CouchDB includes the following databases:
+
+Response:
+- _replicator
+- _users
+- db1
+- db2
+- foo
+
+connection ✩ [host] ✩ -> database foo
+
+Switched to database foo
+
+database ✩ foo ✩ -> destroy
+
+Database deleted.
+
+Switched to connection level
+
+connection ✩ [host] ✩ -> listDatabases
+
+CouchDB includes the following databases:
+
+Response:
+- _replicator
+- _users
+- db1
+- db2
+
+connection ✩ [host] ✩ -
+```
+
+### document [docId]
+
+**Description:** Switch to document level by ID. If you don't set the ID CouchDB will set it for you later. After switching to document level don't forget to ```load``` given document, if you want to access the data.
+
+**! This command is supported by auto-completion for the document id !**
+
+```
+database ✩ [databaseName] ✩ -> document doc1
+
+Switched to document level.
+
+document ✩ doc1 ✩ ->
+```
+
+```
+database ✩ [databaseName] ✩ -> document
+
+Switched to document level.
+
+document ✩ ... ✩ ->
+```
+
+### ensureFullCommit
+
+**Description:** Saves all uncommited stuff to the disk.
+
+**Example:**
+
+```
+database ✩ [databaseName] ✩ -> ensureFullCommit
+
+Response:
+true
+
+database ✩ [databaseName] ✩ ->
+```
+
+### exists
+
+**Description:** Check if given database already exists. If not, you can create it. If so, you can delete it.
+
+**Examples:**
+
+```
+atabase ✩ [existingDatabase] ✩ -> exists
+
+Database already exists.
+
+database ✩ [existingDatabase] ✩
+```
+
+```
+database ✩ [notExistingDatabase] ✩ -> exists
+
+Database doesn't exist yet.
+
+database ✩ [notExistingDatabase] ✩ ->
+```
+
+### info
+
+**Description:** Get information about connected database.
+
+**Example:**
+
+```
+database ✩ [databaseName] ✩ -> info
+
+Response:
+db_name:              foo
+doc_count:            10
+doc_del_count:        7
+update_seq:           149
+purge_seq:            0
+compact_running:      false
+disk_size:            618587
+instance_start_time:  1363201782697759
+disk_format_version:  5
+committed_update_seq: 149
+
+database ✩ [databaseName] ✩ ->
+```
+
+### view [design] [view] [param1] [param2] ...
+
+**Description:** Retriew a particular view in design document for given database.
+
+**Example:** 
+
+```
+database ✩ [databaseName] ✩ -> view entries all
+
+This databases exists of 9 documents.
+
+Displayed result has an offset of 0.
+
+Response:
+- id:    document1
+  key:    foo1
+  value:
+    _id:        document1
+    _rev:       6-841ea3bec41a1ccbf776591dda80e1f9
+    bar:        baz
+- id:    document2
+  key:   foo2
+  value:
+    _id:        document1
+    _rev:       6-841ea3bec41a1ccbf776591dda80e1f9
+    bar:       baz
+…
+a lot of fancy information here
+…
+- id:    document5
+  key:   foo5
+  value:
+    _id:        document1
+    _rev:       6-841ea3bec41a1ccbf776591dda80e1f9
+    bar:       baz
+    
+database ✩ [databaseName] ✩ ->
+```
 
 ## Document Level Commands ( "document ✩ [documentName] ✩ ->" )
 …

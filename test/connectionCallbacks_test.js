@@ -17,7 +17,7 @@
     test.doesNotThrow(block, [error], [message])
     test.ifError(value)
 */
-var connectionCallbacks = require('../lib/connectionCallbacks'),
+var connectionCallbacks = require('../lib/callbacks/connectionCallbacks'),
     exports = module.exports;
 
 exports.commands = {
