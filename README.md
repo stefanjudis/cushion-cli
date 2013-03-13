@@ -493,6 +493,23 @@ connection ✩ [host] ✩ ->
 
 ## Database Level Commands ( "database ✩ [databaseName] ✩ ->" )
 
+### allDesignDocuments 
+
+**Description:** Get a list of all design documents. The representation is without '_design/' at the beginning, because you have to use it at ```view``` command without prefix anyway.
+
+**Example:**
+
+```
+database ✩ [databaseName] ✩ -> allDesignDocuments
+This databases includes of 2 design documents.
+
+Response:
+- designFoo
+- designBar
+
+database ✩ [databaseName] ✩ ->
+```
+
 ### allDocuments [param1] [param2] ...
 
 **Description:** Get a list of all documents given in selected database. Look for all possible param at [here](http://wiki.apache.org/couchdb/HTTP_Document_API#all_docs) at query parameters.
