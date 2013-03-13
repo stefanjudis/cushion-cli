@@ -626,7 +626,7 @@ database ✩ foo ✩ ->
 
 **Description:** Delete given database and remove it from CouchDB. Switch to database level of an existing database and call ```destroy```command.
 
-***Example:***
+**Example:**
 
 ```
 connection ✩ [host] ✩ -> listDatabases
