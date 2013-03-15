@@ -33,7 +33,10 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "grunt": "~0.3.15"
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-contrib-jasmine": "~0.4.1"
   },
   "keywords": [],
   "dependencies": {
