@@ -1,6 +1,6 @@
 {
   "name": "cushion-cli",
-  "description": "Command line tool for cushion couchdb API.",
+  "description": "Command line tool for cushion CouchDB API.",
   "version": "0.1.0",
   "homepage": "https://github.com/stefanjudis/cushion-cli",
   "author": {
