@@ -669,6 +669,8 @@ connection ✩ [host] ✩ -
 
 **! This command is supported by auto-completion for the document id !**
 
+**Example:**
+
 ```
 database ✩ [databaseName] ✩ -> document doc1
 
@@ -746,9 +748,87 @@ committed_update_seq: 149
 database ✩ [databaseName] ✩ ->
 ```
 
+### tmpView [map] [params|reduce] [reduce]
+
+**Description:** Retrieve a temporary view for given database.
+
+**Example:**
+
+```
+database ✩ [databaseName] ✩ -> tmpView 'function(doc) {emit(doc._id, doc);}'
+This databases exists of 10 document.
+Displayed result has an offset of 0.
+
+
+Response:
+-
+  id:    4be0aced2a9fba4d4514ceb56e007a04
+  key:   4be0aced2a9fba4d4514ceb56e007a04
+  value:
+    _id:  4be0aced2a9fba4d4514ceb56e007a04
+    _rev: 1-967a00dff5e02add41819138abb3284d
+-
+  id:    id1
+  key:   key1
+  value:
+    _id:        id1
+    _rev:       6-841ea3bec41a1ccbf776591dda80e1f9
+    name:       foo
+    
+database ✩ [databaseName] ✩ ->    
+```
+
+```
+database ✩ [databaseName] ✩ -> tmpView 'function(doc) {emit(doc._id, doc);}' limit=1
+This databases exists of 10 documents.
+Displayed result has an offset of 0.
+
+
+Response:
+-
+  id:    4be0aced2a9fba4d4514ceb56e007a04
+  key:   4be0aced2a9fba4d4514ceb56e007a04
+  value:
+    _id:  4be0aced2a9fba4d4514ceb56e007a04
+    _rev: 1-967a00dff5e02add41819138abb3284d
+    
+database ✩ [databaseName] ✩ -> 
+```
+
+```
+database ✩ [databaseName] ✩ -> tmpView 'function(doc) {emit(doc._id, doc);}' 'function(keys, values, rereduce){return sum()}'
+This databases exists of undefined documents.
+Displayed result has an offset of undefined.
+
+
+Response:
+-
+  key:   null
+  value: 0
+
+database ✩ [databaseName] ✩ ->
+```
+
+```
+database ✩ [databaseName] ✩ -> tmpView 'function(doc) {emit(doc._id, doc);}' limit=1 'function(keys, values, rereduce){return sum()}'
+This databases exists of 10 documents.
+Displayed result has an offset of 0.
+
+
+Response:
+-
+  id:    4be0aced2a9fba4d4514ceb56e007a04
+  key:   4be0aced2a9fba4d4514ceb56e007a04
+  value:
+    _id:  4be0aced2a9fba4d4514ceb56e007a04
+    _rev: 1-967a00dff5e02add41819138abb3284d
+
+database ✩ [databaseName] ✩ ->
+```
+
 ### view [design] [view] [param1] [param2] ...
 
-**Description:** Retriew a particular view in design document for given database.
+**Description:** Retrieve a particular view in design document for given database.
 
 **Example:** 
 
