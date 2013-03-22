@@ -2,4 +2,3 @@
 node_modules
 TODO
 lib/config/defaults.json
-.jshintrc
