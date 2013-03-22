@@ -16,6 +16,7 @@ module.exports = {
       config.host, config.port, config.name, config.password
     );
 
+    // only include these guys for testing
     this.cli.generalCommands = require('../lib/commands/generalCommands');
 
     this.input = ['does', 'not', 'matter', 'here'];
@@ -149,8 +150,6 @@ module.exports = {
 
   listDatabases: function(test) {
     var cli = this.cli;
-
-    this.input = ['listDatabases'];
 
     this.cli.connectionCallbacks.listDatabases = function(error, databases) {
       console.log(error);
