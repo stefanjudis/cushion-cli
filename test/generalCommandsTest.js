@@ -114,6 +114,7 @@ module.exports = {
       this.cli.prompt = function() {
         test.strictEqual(cli.level, 'database');
         test.strictEqual(cli.name, 'testDatabase');
+        test.ok(cli.db);
         test.strictEqual(cli.db.name(), 'testDatabase');
         test.done();
       };
@@ -137,5 +138,20 @@ module.exports = {
 
       this.generalCommands._database(input, this.cli);
     }
+  },
+
+  user: function(test) {
+    var cli = this.cli,
+        input = ['user', 'stefan'];
+
+    this.cli.prompt = function() {
+      test.strictEqual(cli.level, 'user');
+      test.strictEqual(cli.name, 'stefan');
+      test.ok(cli.user);
+      test.strictEqual(cli.user.name, 'stefan');
+      test.done();
+    };
+
+    this.generalCommands._user(input, this.cli);
   }
 };
