@@ -5,8 +5,8 @@ module.exports = {
         config = require('./config');
 
     // block console.log for cushion output
-    this._console = console.log;
-    console.log = function(){};
+    //this._console = console.log;
+    //console.log = function(){};
 
 
     this.cli = require('../lib/cliRunner');
@@ -24,7 +24,7 @@ module.exports = {
   },
 
   tearDown: function(callback) {
-    console.log = this._console;
+    //console.log = this._console;
 
     callback();
   },
@@ -150,6 +150,8 @@ module.exports = {
         input = ['listDatabases'];
 
     this.cli.connectionCallbacks.listDatabases = function(error, databases) {
+      console.log(error);
+      console.log(databases);
       test.ok(!error);
       test.ok(databases);
       test.ok(databases instanceof Array);
