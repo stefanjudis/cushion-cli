@@ -151,9 +151,6 @@ module.exports = {
 
     this.cli.connectionCallbacks.listDatabases = function(error, databases) {
       console.log(error);
-      console.log(databases);
-
-      console.log(cli);
 
       test.ok(!error);
       test.ok(databases);
