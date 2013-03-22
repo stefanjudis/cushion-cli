@@ -1,5 +1,7 @@
 # Your are a command line hero. And you like CouchDB. Maybe cushion-cli is something for you.
 
+[![Build Status](https://travis-ci.org/stefanjudis/cushion-cli.png?branch=master)](https://travis-ci.org/stefanjudis/cushion-cli)
+
 ### Command line tool for cushion CouchDB API. It is based on the node.js CouchDB-Api [Cushion](https://github.com/Zoddy/cushion).
 
 
@@ -866,6 +868,10 @@ database ✩ [databaseName] ✩ ->
 ```
 
 ## Document Level Commands ( "document ✩ [documentName] ✩ ->" )
+
+### content
+
+**Description:** Get 
 …
 
 ## User Level Commands ( "user ✩ [userName] ✩ ->" )
