@@ -5,10 +5,9 @@ module.exports = {
         config = require('./config');
 
     // block console.log for cushion output
-    //this._console = console.log;
-    //console.log = function(){};
+    this._console = console.log;
+    console.log = function(){};
 
-    console.log(config);
     this.cli = require('../lib/cliRunner');
     this.cli.level = 'connection';
     this.cli.name = config.host;
@@ -152,8 +151,6 @@ module.exports = {
     var cli = this.cli;
 
     this.cli.connectionCallbacks.listDatabases = function(error, databases) {
-      console.log(error);
-
       test.ok(!error);
       test.ok(databases);
       test.ok(databases instanceof Array);
