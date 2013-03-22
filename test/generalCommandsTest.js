@@ -16,7 +16,7 @@ module.exports = {
       config.host, config.port, config.name, config.password
     );
 
-    this.generalCommands = require('../lib/commands/generalCommands');
+    this.cli.generalCommands = require('../lib/commands/generalCommands');
 
     this.input = ['does', 'not', 'matter', 'here'];
 
@@ -39,7 +39,7 @@ module.exports = {
         test.done();
       };
 
-      this.generalCommands['_..'](this.input, this.cli);
+      this.cli.generalCommands['_..'](this.input, this.cli);
     },
 
     databaseLevel: function(test) {
@@ -56,7 +56,7 @@ module.exports = {
         test.done();
       };
 
-      this.generalCommands['_..'](this.input, this.cli);
+      this.cli.generalCommands['_..'](this.input, this.cli);
     },
 
     documentLevel: function(test) {
@@ -72,7 +72,7 @@ module.exports = {
         test.done();
       };
 
-      this.generalCommands['_..'](this.input, this.cli);
+      this.cli.generalCommands['_..'](this.input, this.cli);
     },
 
     userLevel: function(test) {
@@ -90,7 +90,7 @@ module.exports = {
         test.done();
       };
 
-      this.generalCommands['_..'](this.input, this.cli);
+      this.cli.generalCommands['_..'](this.input, this.cli);
     },
   },
 
@@ -108,13 +108,14 @@ module.exports = {
       test.done();
     };
 
-    this.generalCommands._connection(this.input, this.cli);
+    this.cli.generalCommands._connection(this.input, this.cli);
   },
 
   database: {
     databaseUp: function(test) {
-      var cli = this.cli,
-          input = ['database', 'testDatabase'];
+      var cli = this.cli;
+
+      this.input = ['database', 'testDatabase'];
 
       this.cli.prompt = function() {
         test.strictEqual(cli.level, 'database');
@@ -124,12 +125,13 @@ module.exports = {
         test.done();
       };
 
-      this.generalCommands._database(input, this.cli);
+      this.cli.generalCommands._database(this.input, this.cli);
     },
 
     databaseDown: function(test) {
-      var cli = this.cli,
-          input = ['database'];
+      var cli = this.cli;
+
+      this.input = ['database'];
 
       cli.level = 'document';
       cli.db = cli.cushion.database('testDatabase');
@@ -141,13 +143,14 @@ module.exports = {
         test.done();
       };
 
-      this.generalCommands._database(input, this.cli);
+      this.cli.generalCommands._database(this.input, this.cli);
     }
   },
 
   listDatabases: function(test) {
-    var cli = this.cli,
-        input = ['listDatabases'];
+    var cli = this.cli;
+
+    this.input = ['listDatabases'];
 
     this.cli.connectionCallbacks.listDatabases = function(error, databases) {
       console.log(error);
@@ -158,12 +161,13 @@ module.exports = {
       test.done();
     };
 
-    this.generalCommands._listDatabases(input, this.cli);
+    this.cli.generalCommands._listDatabases(this.input, this.cli);
   },
 
   user: function(test) {
-    var cli = this.cli,
-        input = ['user', 'stefan'];
+    var cli = this.cli;
+
+    this.input = ['user', 'stefan'];
 
     this.cli.prompt = function() {
       test.strictEqual(cli.level, 'user');
@@ -173,6 +177,6 @@ module.exports = {
       test.done();
     };
 
-    this.generalCommands._user(input, this.cli);
+    this.cli.generalCommands._user(this.input, this.cli);
   }
 };
