@@ -869,12 +869,104 @@ database ✩ [databaseName] ✩ ->
 
 ## Document Level Commands ( "document ✩ [documentName] ✩ ->" )
 
-### content
+### content [key] [value]
 
-**Description:** Get 
+**Description:** Get or set document body content. Don't forget to save it with ```save``` command later on.
+
+**! This command is supported by auto-completion for the document body key !**
+
+**Examples:**
+
+```
+document ✩ [docId] ✩ -> content
+
+Response:
+_id:        docId
+name:       someName
 …
+a lot of fancy information here
+…
+foo:        bar
+
+document ✩ [docId] ✩ ->
+```
+
+```
+document ✩ [docId] ✩ -> content name
+
+Response:
+someName
+
+document ✩ [docId] ✩ ->```
+```
+
+```
+document ✩ [docId] ✩ -> content name newName
+
+Property set.
+
+document ✩ [docId] ✩ -> content
+
+Response:
+_id:        docId
+name:       newName
+…
+a lot of fancy information here
+…
+foo:        bar
+
+document ✩ [docId] ✩ ->
+```
+
+### info ###
+
+**Description:** Get info about given document.
+
+**Examples:**
+
+```
+document ✩ [docId] ✩ -> info
+
+Response:
+revision: 13-8da00c2e8d7b1a0ddc6db934e48b85a1
+size:     448
+
+document ✩ [docId] ✩ ->
+```
+
+### load ###
+
+**Description:** Load body of particular document. Before that command your document will be empty.
+
+**Example:**
+
+```
+document ✩ [docId] ✩ -> info
+
+Response:
+revision: 13-8da00c2e8d7b1a0ddc6db934e48b85a1
+size:     448
+
+document ✩ [docId] ✩ ->
+```
+
+### save ###
+
+**Desciption:** Save body of particular document to CouchDB.
+
+**Example:**
+
+```
+document ✩ [docId] ✩ -> save
+
+Document saved.
+
+document ✩ [docId] ✩ ->
+```
 
 ## User Level Commands ( "user ✩ [userName] ✩ ->" )
+
+** Commands are implemented but not documented yet. Try it out by yourself. ;) **
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
