@@ -1,6 +1,6 @@
 {
   "name": "cushion-cli",
-  "description": "Command line tool for cushion CouchDB API.",
+  "description": "Command line tool for CouchDB based on cushion.",
   "version": "0.1.0",
   "homepage": "https://github.com/stefanjudis/cushion-cli",
   "author": {
@@ -38,7 +38,7 @@
     "grunt-contrib-watch": "~0.3.1",
     "grunt-contrib-nodeunit": "~0.1.2"
   },
-  "keywords": [],
+  "keywords": ["couchdb", "cli", "command line", "cushion"],
   "dependencies": {
     "cushion": ">= 1.6.2",
     "cli-color": ">= 0.1.7",
