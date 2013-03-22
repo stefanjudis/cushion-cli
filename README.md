@@ -897,7 +897,7 @@ document ✩ [docId] ✩ -> content name
 Response:
 someName
 
-document ✩ [docId] ✩ ->```
+document ✩ [docId] ✩ ->
 ```
 
 ```
