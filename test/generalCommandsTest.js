@@ -1,16 +1,21 @@
 
 module.exports = {
   setUp: function(callback) {
-    var Cushion = require('cushion');
+    var Cushion = require('cushion'),
+        config = require('./config');
 
     // block console.log for cushion output
     this._console = console.log;
     console.log = function(){};
 
+
     this.cli = require('../lib/cliRunner');
     this.cli.level = 'connection';
-    this.cli.name = '127.0.0.1';
-    this.cli.cushion = new Cushion.Connection('127.0.0.1', '5984', 'stefan', 'xxxx');
+    this.cli.name = config.host;
+    this.cli.cushion = new Cushion.Connection(
+      config.host, config.port, config.name, config.password
+    );
+
     this.generalCommands = require('../lib/commands/generalCommands');
 
     this.input = ['does', 'not', 'matter', 'here'];
@@ -138,6 +143,20 @@ module.exports = {
 
       this.generalCommands._database(input, this.cli);
     }
+  },
+
+  listDatabases: function(test) {
+    var cli = this.cli,
+        input = ['listDatabases'];
+
+    this.cli.connectionCallbacks.listDatabases = function(error, databases) {
+      test.ok(!error);
+      test.ok(databases);
+      test.ok(databases instanceof Array);
+      test.done();
+    };
+
+    this.generalCommands._listDatabases(input, this.cli);
   },
 
   user: function(test) {
