@@ -23,11 +23,13 @@ module.exports = {
     callback();
   },
 
+
   tearDown: function(callback) {
     //console.log = this._console;
 
     callback();
   },
+
 
   stepBack: {
     connectionLevel: function(test) {
@@ -94,6 +96,7 @@ module.exports = {
     },
   },
 
+
   connection: function(test) {
     var cli = this.cli;
 
@@ -110,6 +113,7 @@ module.exports = {
 
     this.cli.generalCommands._connection(this.input, this.cli);
   },
+
 
   database: {
     databaseUp: function(test) {
@@ -147,6 +151,7 @@ module.exports = {
     }
   },
 
+
   listDatabases: function(test) {
     var cli = this.cli;
 
@@ -159,6 +164,7 @@ module.exports = {
 
     this.cli.generalCommands._listDatabases(this.input, this.cli);
   },
+
 
   user: function(test) {
     var cli = this.cli;
