@@ -153,7 +153,7 @@ connection ✩ [host] ✩ ->
 ```
 
 
-## Connection Level Commands ( "connection ✩ [host] ✩ ->" )
+## Connection Level Commands ( "connection ✩ [host] ✩ ->" ):
 
 ### activeTaks
 
@@ -493,7 +493,7 @@ Response:
 connection ✩ [host] ✩ ->
 ```
 
-## Database Level Commands ( "database ✩ [databaseName] ✩ ->" )
+## Database Level Commands ( "database ✩ [databaseName] ✩ ->" ):
 
 ### allDesignDocuments 
 
@@ -867,7 +867,7 @@ a lot of fancy information here
 database ✩ [databaseName] ✩ ->
 ```
 
-## Document Level Commands ( "document ✩ [documentName] ✩ ->" )
+## Document Level Commands ( "document ✩ [documentName] ✩ ->" ):
 
 ### content [key] [value]
 
@@ -964,7 +964,7 @@ Document saved.
 document ✩ [docId] ✩ ->
 ```
 
-## User Level Commands ( "user ✩ [userName] ✩ ->" )
+## User Level Commands ( "user ✩ [userName] ✩ ->" ):
 
 ** Commands are implemented but not documented yet. Try it out by yourself. ;) **
 
