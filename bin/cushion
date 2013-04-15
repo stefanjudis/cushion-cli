@@ -27,7 +27,7 @@ function handleArguments (args) {
 }
 
 function showVersionNumber() {
-  fs.readFile('./package.json', function(error, data) {
+  fs.readFile(__dirname + '/../package.json', function(error, data) {
     var packageJSON = JSON.parse(data);
 
     console.log(packageJSON.version);
