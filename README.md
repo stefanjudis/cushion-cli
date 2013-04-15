@@ -5,6 +5,9 @@
 ### Command line tool for cushion CouchDB API. It is based on the node.js CouchDB-Api [Cushion](https://github.com/Zoddy/cushion).
 
 
+##[Introduction on Youtube](https://www.youtube.com/watch?v=w5ppOvKwWC0)
+
+
 ## Getting Started
 Install the module with: `npm install -g cushion-cli`
 
