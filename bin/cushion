@@ -9,10 +9,27 @@
  */
 
 var cli = require('../lib/cliRunner'),
+    fs = require('fs'),
     args = process.argv;
 
-if (args[2]) {
-  console.log('immediately execution of something');
+if (args.length > 2) {
+  handleArguments( args );
 } else {
   cli.init();
+}
+
+function handleArguments (args) {
+  args.forEach(function( value ) {
+    if (value === '-v' || value === '-version') {
+      showVersionNumber();
+    }
+  });
+}
+
+function showVersionNumber() {
+  fs.readFile('./package.json', function(error, data) {
+    var packageJSON = JSON.parse(data);
+
+    console.log(packageJSON.version);
+  })
 }
