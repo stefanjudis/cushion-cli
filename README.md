@@ -6,11 +6,10 @@
 
 ## Your are a command line hero. And you like CouchDB. Maybe cushion-cli is something for you.
 
-
 ### Command line tool for cushion CouchDB API. It is based on the node.js CouchDB-Api [Cushion](https://github.com/Zoddy/cushion).
 
 
-##[Introduction on Youtube](https://www.youtube.com/watch?v=w5ppOvKwWC0)
+###[Introduction on Youtube](https://www.youtube.com/watch?v=w5ppOvKwWC0)
 
 
 ## Getting Started
