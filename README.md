@@ -1,6 +1,11 @@
-# Your are a command line hero. And you like CouchDB. Maybe cushion-cli is something for you.
+![cushion logo](./assets/cushion-cli-page-logo.png)
 
 [![Build Status](https://travis-ci.org/stefanjudis/cushion-cli.png?branch=master)](https://travis-ci.org/stefanjudis/cushion-cli)
+
+=========
+
+## Your are a command line hero. And you like CouchDB. Maybe cushion-cli is something for you.
+
 
 ### Command line tool for cushion CouchDB API. It is based on the node.js CouchDB-Api [Cushion](https://github.com/Zoddy/cushion).
 
