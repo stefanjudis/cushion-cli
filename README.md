@@ -187,7 +187,7 @@ The parameters section, option and value are optional. So if you want to retriev
 **Examples:**
 
 ```
-onnection ✩ [host] ✩ -> config
+connection ✩ [host] ✩ -> config
 
 Response:
 httpd_design_handlers:
