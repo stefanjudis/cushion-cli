@@ -1,8 +1,7 @@
-![cushion logo](./assets/cushion-cli-page-logo.png)
+![cushion logo](https://raw.github.com/stefanjudis/cushion-cli/master/assets/cushion-cli-page-logo.png)
 
 [![Build Status](https://travis-ci.org/stefanjudis/cushion-cli.png?branch=master)](https://travis-ci.org/stefanjudis/cushion-cli)
 
-=========
 
 ## Your are a command line hero. And you like CouchDB. Maybe cushion-cli is something for you.
 
