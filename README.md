@@ -959,7 +959,7 @@ document ✩ [docId] ✩ ->
 
 ### save ###
 
-**Desciption:** Save body of particular document to CouchDB.
+**Description:** Save body of particular document to CouchDB.
 
 **Example:**
 
@@ -973,8 +973,133 @@ document ✩ [docId] ✩ ->
 
 ## User Level Commands ( "user ✩ [userName] ✩ ->" ):
 
-** Commands are implemented but not documented yet. Try it out by yourself. ;) **
+### addRole [role1] [role2] ...###
 
+**Description:** Add one or more new roles to current user.
+
+**Example:**
+
+```
+user ✩ foo ✩ -> addRole bar
+
+Role(s) were successfully added.
+
+user ✩ foo ✩ -> getRoles
+
+User has the following roles:
+
+Response:
+- bar
+```
+
+```
+user ✩ foo ✩ -> addRole bar1 bar2 bar3
+
+Role(s) were successfully added.
+
+user ✩ foo ✩ -> getRoles
+
+User has the following roles:
+
+Response:
+- bar1
+- bar2
+- bar3
+
+user ✩ foo ✩ ->
+```
+
+### create [password]###
+
+**Description:** Create new user. **Password argument optional**. If empty password prompt, will be displayed afterwards.
+
+**Example:**
+
+```
+connection ✩ [host] ✩ -> user foo
+
+Switched to user foo
+
+user ✩ foo ✩ -> create
+What is the passwort for the user? fancyPassword
+
+User was successfully created.
+
+user ✩ foo ✩ ->
+```
+
+```
+connection ✩ [host] ✩ -> user foo
+
+Switched to user foo
+
+user ✩ foo ✩ -> create fancyPassword
+
+User was successfully created.
+
+user ✩ foo ✩ ->
+```
+
+### delete ###
+
+**Description:** Delete current user. Level will be switched to connection level afterwards.
+
+**Example:**
+
+```
+user ✩ foo ✩ -> delete
+
+User was succesfully deleted.
+
+connection ✩ 127.0.0.1 ✩ ->
+```
+
+### deleteRole [role]###
+
+**Description:** Delete a particular role of current user.
+
+**Example:**
+
+```
+user ✩ foo ✩ -> getRoles
+
+User has the following roles:
+
+Response:
+- bar
+
+user ✩ foo ✩ -> deleteRole bar
+
+Role(s) were successfully deleted.
+
+user ✩ foo ✩ -> getRoles
+
+User has the following roles:
+
+Response:
+(empty array)
+
+user ✩ foo ✩ ->
+```
+
+###getRoles###
+
+**Description:** Get all roles of current user.
+
+**Example:**
+
+```
+user ✩ foo ✩ -> getRoles
+
+User has the following roles:
+
+Response:
+- bar
+- bar2
+- bar3
+
+user ✩ foo ✩ ->
+```
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
