@@ -114,6 +114,112 @@ module.exports = {
     this.cli.generalCommands._connection(this.input, this.cli);
   },
 
+  commandExists: {
+    connection: function(test) {
+      var cli = this.cli,
+          connectionCommands = Object.keys(
+                                  require('../lib/commands/connectionCommands')
+                                ),
+          connectionCommandsLength = connectionCommands.length,
+          i = 0;
+
+      cli.level = 'connection';
+
+      for(i; i < connectionCommandsLength; i++) {
+        if (
+          connectionCommands[i] !== 'command' &&
+          connectionCommands[i] !== 'commandExists'
+        ) {
+          test.strictEqual(
+            cli.connectionCommands.commandExists(
+              connectionCommands[i].substr(1)
+            ),
+            true
+          );
+        }
+      }
+
+      test.done();
+    },
+    database: function(test) {
+      var cli = this.cli,
+          databaseCommands = Object.keys(
+                                  require('../lib/commands/databaseCommands')
+                                ),
+          databaseCommandsLength = databaseCommands.length,
+          i = 0;
+
+      cli.level = 'database';
+
+      for(i; i < databaseCommandsLength; i++) {
+        if (
+          databaseCommands[i] !== 'command' &&
+          databaseCommands[i] !== 'commandExists'
+        ) {
+          test.strictEqual(
+            cli.databaseCommands.commandExists(
+              databaseCommands[i].substr(1)
+            ),
+            true
+          );
+        }
+      }
+
+      test.done();
+    },
+    document: function(test) {
+      var cli = this.cli,
+          documentCommands = Object.keys(
+                                  require('../lib/commands/documentCommands')
+                                ),
+          documentCommandsLength = documentCommands.length,
+          i = 0;
+
+      cli.level = 'document';
+
+      for(i; i < documentCommandsLength; i++) {
+        if (
+          documentCommands[i] !== 'command' &&
+          documentCommands[i] !== 'commandExists'
+        ) {
+          test.strictEqual(
+            cli.documentCommands.commandExists(
+              documentCommands[i].substr(1)
+            ),
+            true
+          );
+        }
+      }
+
+      test.done();
+    },
+    user: function(test) {
+      var cli = this.cli,
+          userCommands = Object.keys(
+                                  require('../lib/commands/userCommands')
+                                ),
+          userCommandsLength = userCommands.length,
+          i = 0;
+
+      cli.level = 'user';
+
+      for(i; i < userCommandsLength; i++) {
+        if (
+          userCommands[i] !== 'command' &&
+          userCommands[i] !== 'commandExists'
+        ) {
+          test.strictEqual(
+            cli.userCommands.commandExists(
+              userCommands[i].substr(1)
+            ),
+            true
+          );
+        }
+      }
+
+      test.done();
+    }
+  },
 
   database: {
     databaseUp: function(test) {
