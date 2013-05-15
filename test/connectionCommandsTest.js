@@ -15,13 +15,14 @@ module.exports = {
     );
 
     this.cPrompt = require('../lib/prompt/prompt');
+    this.cFile = require('../lib/file/file');
 
     callback();
   },
 
 
   tearDown: function(callback) {
-    //console.log = this._console;
+    console.log = this._console;
 
     callback();
   },
@@ -223,6 +224,39 @@ module.exports = {
       };
 
       cli.connectionCommands._log(input, cli);
+    }
+  },
+
+
+  saveConnection: {
+    oneArgument: function(test) {
+      var cli = this.cli,
+          input = ['saveConnection'];
+
+      console.log = function() {
+        test.strictEqual(arguments.length, 1);
+      };
+
+      cli.prompt = function() {
+        test.done();
+      };
+
+      cli.connectionCommands._saveConnection(input, cli);
+    },
+    twoArguments: function(test) {
+      var cli = this.cli,
+          input = ['saveConnection', 'redundantInput'];
+
+      this.cFile._writeConnections = function(connections, callback) {
+        test.strictEqual(arguments.length, 2);
+        test.strictEqual(typeof connections, 'object');
+        test.strictEqual(connections instanceof Object, true);
+        test.strictEqual(typeof callback, 'function' );
+        test.strictEqual(callback instanceof Function, true);
+        test.done();
+      };
+
+      cli.connectionCommands._saveConnection(input, cli);
     }
   },
 
