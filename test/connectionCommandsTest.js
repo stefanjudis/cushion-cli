@@ -14,8 +14,6 @@ module.exports = {
       config.host, config.port, config.name, config.password
     );
 
-    this.input = ['does', 'not', 'matter', 'here'];
-
     this.cPrompt = require('../lib/prompt/prompt');
 
     callback();
@@ -31,7 +29,8 @@ module.exports = {
 
   config: {
     oneArgument: function(test) {
-      this.input = ['config'];
+      var cli = this.cli,
+          input = ['config'];
 
       this.cli.cushion.config = function() {
         test.strictEqual(arguments.length, 1);
@@ -39,10 +38,11 @@ module.exports = {
         test.done();
       };
 
-      this.cli.connectionCommands._config(this.input, this.cli);
+      cli.connectionCommands._config(input, cli);
     },
     twoArguments: function(test) {
-      this.input = ['config', 'section'];
+      var cli = this.cli,
+          input = ['config', 'section'];
 
       this.cli.cushion.config = function() {
         test.strictEqual(arguments.length, 2);
@@ -51,10 +51,11 @@ module.exports = {
         test.done();
       };
 
-      this.cli.connectionCommands._config(this.input, this.cli);
+      cli.connectionCommands._config(input, cli);
     },
     threeArguments: function(test) {
-      this.input = ['config', 'section', 'option'];
+      var cli = this.cli,
+          input = ['config', 'section', 'option'];
 
       this.cli.cushion.config = function() {
         test.strictEqual(arguments.length, 3);
@@ -64,10 +65,11 @@ module.exports = {
         test.done();
       };
 
-      this.cli.connectionCommands._config(this.input, this.cli);
+        cli.connectionCommands._config(input, cli);
     },
     fourArguments: function(test) {
-      this.input = ['config', 'section', 'option', 'value'];
+      var cli = this.cli,
+          input = ['config', 'section', 'option', 'value'];
 
       this.cli.cushion.config = function() {
         test.strictEqual(arguments.length, 4);
@@ -78,31 +80,33 @@ module.exports = {
         test.done();
       };
 
-      this.cli.connectionCommands._config(this.input, this.cli);
+      cli.connectionCommands._config(input, cli);
     },
     fiveArguments: function(test) {
-      this.input = ['config', 'section', 'option', 'value', 'invalidInput'];
+      var cli = this.cli,
+          input = ['config', 'section', 'option', 'value', 'invalidInput'];
 
       console.log = function() {
         test.strictEqual(arguments.length, 1);
         test.done();
       };
 
-      this.cli.connectionCommands._config(this.input, this.cli);
+      cli.connectionCommands._config(input, cli);
     },
   },
 
 
   createAdmin: {
     oneArgument: function(test) {
-      this.input = ['createAdmin'];
+      var cli = this.cli,
+          input = ['createAdmin'];
 
       this.cPrompt._promptGetAdmin = function() {
         test.strictEqual(arguments.length, 2);
         test.done();
       };
 
-      this.cli.connectionCommands._createAdmin(this.input, this.cli);
+      cli.connectionCommands._createAdmin(input, cli);
     },
     twoArguments: function(test) {
       var cli = this.cli,
@@ -116,7 +120,8 @@ module.exports = {
       cli.connectionCommands._createAdmin(input, cli);
     },
     threeArguments: function(test) {
-      this.input = ['createAdmin', 'admin', 'password'];
+      var cli = this.cli,
+          input = ['createAdmin', 'admin', 'password'];
 
       this.cli.cushion.createAdmin = function() {
         test.strictEqual(arguments.length, 3);
@@ -126,17 +131,58 @@ module.exports = {
         test.done();
       };
 
-      this.cli.connectionCommands._createAdmin(this.input, this.cli);
+      cli.connectionCommands._createAdmin(input, cli);
     },
     fourArguments: function(test) {
-      this.input = ['createAdmin', 'admin', 'password', 'invalidInput'];
+      var cli = this.cli,
+          input = ['createAdmin', 'admin', 'password', 'invalidInput'];
 
       console.log = function() {
         test.strictEqual(arguments.length, 1);
         test.done();
       };
 
-      this.cli.connectionCommands._createAdmin(this.input, this.cli);
+      cli.connectionCommands._createAdmin(input, cli);
+    }
+  },
+
+
+  deleteAdmin: {
+    oneArgument: function(test) {
+      var cli = this.cli,
+          input = ['deleteAdmin'];
+
+      this.cPrompt._promptDeleteAdmin = function(inputCli) {
+        test.strictEqual(arguments.length, 1);
+        test.strictEqual(inputCli, cli);
+        test.done();
+      };
+
+      cli.connectionCommands._deleteAdmin(input, cli);
+    },
+    twoArguments: function(test) {
+      var cli = this.cli,
+          input = ['deleteAdmin', 'foo'];
+
+      this.cli.cushion.deleteAdmin = function(name, callback) {
+        test.strictEqual(arguments.length, 2);
+        test.strictEqual(name, 'foo');
+        test.strictEqual(callback, cli.connectionCallbacks.deleteAdmin);
+        test.done();
+      };
+
+      cli.connectionCommands._deleteAdmin(input, cli);
+    },
+    threeArguments: function(test) {
+      var cli = this.cli,
+          input = ['deleteAdmin', 'foo', 'redundantInput'];
+
+      console.log = function() {
+        test.strictEqual(arguments.length, 1);
+        test.done();
+      };
+
+      cli.connectionCommands._deleteAdmin(input, cli);
     }
   }
 };
