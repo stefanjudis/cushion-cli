@@ -224,5 +224,44 @@ module.exports = {
 
       cli.connectionCommands._log(input, cli);
     }
+  },
+
+
+  uuids: {
+    oneArgument: function(test) {
+      var cli = this.cli,
+          input = ['uuids'];
+
+      cli.cushion.uuids = function(callback) {
+        test.strictEqual(arguments.length, 1);
+        test.strictEqual(callback, cli.connectionCallbacks.uuids);
+        test.done();
+      };
+
+      cli.connectionCommands._uuids(input, cli);
+    },
+    twoArguments: function(test) {
+      var cli = this.cli,
+          input = ['uuids', 2];
+      cli.cushion.uuids = function(nrOfUuids, callback) {
+        test.strictEqual(arguments.length, 2);
+        test.strictEqual(nrOfUuids, 2);
+        test.strictEqual(callback, cli.connectionCallbacks.uuids);
+        test.done();
+      };
+
+      cli.connectionCommands._uuids(input, cli);
+    },
+    threeArguments: function(test) {
+      var cli = this.cli,
+          input = ['uuids', 2, 'redundantInput'];
+
+      console.log = function() {
+        test.strictEqual(arguments.length, 1);
+        test.done();
+      };
+
+      cli.connectionCommands._uuids(input, cli);
+    }
   }
 };
