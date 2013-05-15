@@ -184,5 +184,45 @@ module.exports = {
 
       cli.connectionCommands._deleteAdmin(input, cli);
     }
+  },
+
+
+  log: {
+    oneArguments: function(test) {
+      var cli = this.cli,
+          input = ['log'];
+
+      cli.cushion.log = function(callback) {
+        test.strictEqual(arguments.length, 1);
+        test.strictEqual(callback, cli.connectionCallbacks.log);
+        test.done();
+      };
+
+      cli.connectionCommands._log(input, cli);
+    },
+    twoArguments: function(test) {
+      var cli = this.cli,
+          input = ['log', 8];
+
+      cli.cushion.log = function(bytes, callback) {
+        test.strictEqual(arguments.length, 2);
+        test.strictEqual(bytes, 8);
+        test.strictEqual(callback, cli.connectionCallbacks.log);
+        test.done();
+      };
+
+      cli.connectionCommands._log(input, cli);
+    },
+    threeArguments: function(test) {
+      var cli = this.cli,
+          input = ['log', 12, 'redundantInput'];
+
+      console.log = function() {
+        test.strictEqual(arguments.length, 1);
+        test.done();
+      };
+
+      cli.connectionCommands._log(input, cli);
+    }
   }
 };
