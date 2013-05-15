@@ -35,13 +35,13 @@ module.exports = {
     connectionLevel: function(test) {
       var cli = this.cli;
 
-      this.cli.prompt = function() {
+      cli.prompt = function() {
         test.strictEqual(cli.level, 'connection');
         test.strictEqual(cli.name, '127.0.0.1');
         test.done();
       };
 
-      this.cli.generalCommands['_..'](this.input, this.cli);
+      cli.generalCommands['_..'](this.input, cli);
     },
 
     databaseLevel: function(test) {
@@ -51,14 +51,14 @@ module.exports = {
       cli.name = 'testDatabase';
       cli.db = cli.cushion.database('testDatabase');
 
-      this.cli.prompt = function() {
+      cli.prompt = function() {
         test.strictEqual(cli.level, 'connection');
         test.strictEqual(cli.name, '127.0.0.1');
         test.strictEqual(cli.db, undefined);
         test.done();
       };
 
-      this.cli.generalCommands['_..'](this.input, this.cli);
+      cli.generalCommands['_..'](this.input, cli);
     },
 
     documentLevel: function(test) {
@@ -68,13 +68,13 @@ module.exports = {
       cli.db = cli.cushion.database('testDatabase');
       cli.name = 'testDocument';
 
-      this.cli.prompt = function() {
+      cli.prompt = function() {
         test.strictEqual(cli.level, 'database');
         test.strictEqual(cli.name, cli.db.name());
         test.done();
       };
 
-      this.cli.generalCommands['_..'](this.input, this.cli);
+      cli.generalCommands['_..'](this.input, cli);
     },
 
     userLevel: function(test) {
@@ -86,13 +86,13 @@ module.exports = {
       cli.level = 'user';
       cli.name = cli.user.name;
 
-      this.cli.prompt = function() {
+      cli.prompt = function() {
         test.strictEqual(cli.level, 'connection');
         test.strictEqual(cli.name, '127.0.0.1');
         test.done();
       };
 
-      this.cli.generalCommands['_..'](this.input, this.cli);
+      cli.generalCommands['_..'](this.input, cli);
     },
   },
 
@@ -104,14 +104,14 @@ module.exports = {
     cli.db = cli.cushion.database('testDatabase');
     cli.name = 'testDatabase';
 
-    this.cli.prompt = function() {
+    cli.prompt = function() {
       test.strictEqual(cli.level, 'connection');
       test.strictEqual(cli.name, cli.cushion.option('host'));
       test.strictEqual(cli.db, undefined);
       test.done();
     };
 
-    this.cli.generalCommands._connection(this.input, this.cli);
+    cli.generalCommands._connection(this.input, cli);
   },
 
   commandExists: {
@@ -227,7 +227,7 @@ module.exports = {
 
       this.input = ['database', 'testDatabase'];
 
-      this.cli.prompt = function() {
+      cli.prompt = function() {
         test.strictEqual(cli.level, 'database');
         test.strictEqual(cli.name, 'testDatabase');
         test.ok(cli.db);
@@ -235,7 +235,7 @@ module.exports = {
         test.done();
       };
 
-      this.cli.generalCommands._database(this.input, this.cli);
+      cli.generalCommands._database(this.input, cli);
     },
 
     databaseDown: function(test) {
@@ -247,13 +247,13 @@ module.exports = {
       cli.db = cli.cushion.database('testDatabase');
       cli.name = 'testDocument';
 
-      this.cli.prompt = function() {
+      cli.prompt = function() {
         test.strictEqual(cli.level, 'database');
         test.strictEqual(cli.name, 'testDatabase');
         test.done();
       };
 
-      this.cli.generalCommands._database(this.input, this.cli);
+      cli.generalCommands._database(this.input, cli);
     }
   },
 
@@ -261,14 +261,29 @@ module.exports = {
   listDatabases: function(test) {
     var cli = this.cli;
 
-    this.cli.connectionCallbacks.listDatabases = function(error, databases) {
+    cli.connectionCallbacks.listDatabases = function(error, databases) {
       test.ok(!error);
       test.ok(databases);
       test.ok(databases instanceof Array);
       test.done();
     };
 
-    this.cli.generalCommands._listDatabases(this.input, this.cli);
+    cli.generalCommands._listDatabases(this.input, cli);
+  },
+
+
+  listUsers: function(test) {
+    var cli = this.cli;
+
+    console.pretty = function(userNames) {
+      test.ok(userNames instanceof Array);
+    };
+
+    cli.prompt = function() {
+      test.done();
+    };
+
+    cli.generalCommands._listUsers(this.input, cli);
   },
 
 
@@ -277,7 +292,7 @@ module.exports = {
 
     this.input = ['user', 'stefan'];
 
-    this.cli.prompt = function() {
+    cli.prompt = function() {
       test.strictEqual(cli.level, 'user');
       test.strictEqual(cli.name, 'stefan');
       test.ok(cli.user);
@@ -285,6 +300,6 @@ module.exports = {
       test.done();
     };
 
-    this.cli.generalCommands._user(this.input, this.cli);
+    cli.generalCommands._user(this.input, cli);
   }
 };
