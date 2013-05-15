@@ -16,6 +16,8 @@ module.exports = {
 
     this.input = ['does', 'not', 'matter', 'here'];
 
+    this.cPrompt = require('../lib/prompt/prompt');
+
     callback();
   },
 
@@ -82,10 +84,59 @@ module.exports = {
       this.input = ['config', 'section', 'option', 'value', 'invalidInput'];
 
       console.log = function() {
+        test.strictEqual(arguments.length, 1);
         test.done();
       };
 
       this.cli.connectionCommands._config(this.input, this.cli);
     },
+  },
+
+
+  createAdmin: {
+    oneArgument: function(test) {
+      this.input = ['createAdmin'];
+
+      this.cPrompt._promptGetAdmin = function() {
+        test.strictEqual(arguments.length, 2);
+        test.done();
+      };
+
+      this.cli.connectionCommands._createAdmin(this.input, this.cli);
+    },
+    twoArguments: function(test) {
+      var cli = this.cli,
+          input = ['createAdmin', 'admin'];
+
+      console.log = function() {
+        test.strictEqual(arguments.length, 1);
+        test.done();
+      };
+
+      cli.connectionCommands._createAdmin(input, cli);
+    },
+    threeArguments: function(test) {
+      this.input = ['createAdmin', 'admin', 'password'];
+
+      this.cli.cushion.createAdmin = function() {
+        test.strictEqual(arguments.length, 3);
+        test.strictEqual(arguments[0], 'admin');
+        test.strictEqual(arguments[1], 'password');
+        test.strictEqual(typeof arguments[2], 'function');
+        test.done();
+      };
+
+      this.cli.connectionCommands._createAdmin(this.input, this.cli);
+    },
+    fourArguments: function(test) {
+      this.input = ['createAdmin', 'admin', 'password', 'invalidInput'];
+
+      console.log = function() {
+        test.strictEqual(arguments.length, 1);
+        test.done();
+      };
+
+      this.cli.connectionCommands._createAdmin(this.input, this.cli);
+    }
   }
 };

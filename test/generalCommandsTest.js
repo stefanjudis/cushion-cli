@@ -44,6 +44,7 @@ module.exports = {
       cli.generalCommands['_..'](this.input, cli);
     },
 
+
     databaseLevel: function(test) {
       var cli = this.cli;
 
@@ -61,6 +62,7 @@ module.exports = {
       cli.generalCommands['_..'](this.input, cli);
     },
 
+
     documentLevel: function(test) {
       var cli = this.cli;
 
@@ -76,6 +78,7 @@ module.exports = {
 
       cli.generalCommands['_..'](this.input, cli);
     },
+
 
     userLevel: function(test) {
       var cli = this.cli;
@@ -113,6 +116,7 @@ module.exports = {
 
     cli.generalCommands._connection(this.input, cli);
   },
+
 
   commandExists: {
     connection: function(test) {
@@ -220,6 +224,7 @@ module.exports = {
       test.done();
     }
   },
+
 
   database: {
     databaseUp: function(test) {
