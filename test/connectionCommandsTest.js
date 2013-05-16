@@ -188,6 +188,115 @@ module.exports = {
   },
 
 
+  deleteConnection: {
+    oneArgument: function(test) {
+      var cli = this.cli,
+          input = ['deleteConnection'],
+          cPrompt = this.cPrompt;
+
+      cPrompt._showConnections = function(callback) {
+        test.strictEqual(arguments.length, 1);
+        test.strictEqual(typeof callback, 'function');
+        test.strictEqual(callback instanceof Function, true);
+        test.strictEqual(callback, cPrompt._setupDeleteSavedConnection);
+        test.done();
+      };
+
+      cli.connectionCommands._deleteConnection(input, cli);
+    },
+    twoArguments: {
+      inputIsName: {
+        nameExists: function(test) {
+          var cli = this.cli,
+              input = ['deleteConnection', 'connection'];
+
+          cli.connections = {};
+          cli.connections.connection = 'foo';
+
+          this.cFile._writeConnections = function(connections, callback) {
+            test.strictEqual(typeof connections, 'object');
+            test.strictEqual(connections instanceof Object, true);
+            test.strictEqual(Object.keys(connections).length, 0);
+
+            test.strictEqual(typeof callback, 'function');
+            test.strictEqual(callback instanceof Function, true);
+
+            test.done();
+          };
+
+          cli.connectionCommands._deleteConnection(input, cli);
+        },
+        nameDoesntExist: function(test) {
+          var cli = this.cli,
+              input = ['deleteConnection', 'noConnection'];
+
+          cli.connections = {};
+          cli.connections.connection = 'foo';
+
+          console.log = function(message) {
+            test.strictEqual(Object.keys(cli.connections).length, 1);
+
+            test.strictEqual(arguments.length, 1);
+            test.strictEqual(typeof message, 'string');
+          };
+
+          cli.prompt = function() {
+            test.strictEqual(arguments.length, 0);
+
+            test.done();
+          };
+
+          cli.connectionCommands._deleteConnection(input, cli);
+        }
+      },
+      inputIsIndex: {
+        indexExists: function(test) {
+          var cli = this.cli,
+              input = ['deleteConnection', '1'];
+
+          cli.connections = {};
+          cli.connections.connection = 'foo';
+
+          this.cFile._writeConnections = function(connections, callback) {
+              test.strictEqual(typeof connections, 'object');
+              test.strictEqual(connections instanceof Object, true);
+              test.strictEqual(Object.keys(connections).length, 0);
+
+              test.strictEqual(typeof callback, 'function');
+              test.strictEqual(callback instanceof Function, true);
+
+            test.done();
+          };
+
+          cli.connectionCommands._deleteConnection(input, cli);
+        },
+        indexDoesntExist: function(test) {
+          var cli = this.cli,
+              input = ['deleteConnection', '2'];
+
+          cli.connections = {};
+          cli.connections.connection = 'foo';
+
+          console.log = function(message) {
+            test.strictEqual(Object.keys(cli.connections).length, 1);
+
+            test.strictEqual(arguments.length, 1);
+            test.strictEqual(typeof message, 'string');
+          };
+
+          cli.prompt = function() {
+            test.strictEqual(arguments.length, 0);
+
+            test.done();
+          };
+
+          cli.connectionCommands._deleteConnection(input, cli);
+        }
+      }
+    }
+  },
+
+
   log: {
     oneArguments: function(test) {
       var cli = this.cli,
