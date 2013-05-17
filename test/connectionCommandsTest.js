@@ -93,7 +93,7 @@ module.exports = {
       };
 
       cli.connectionCommands._config(input, cli);
-    },
+    }
   },
 
 
