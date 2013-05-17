@@ -32,7 +32,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  // Default task.
+  // Default
   grunt.registerTask('default', ['jshint', 'nodeunit']);
   grunt.registerTask('travis', ['jshint', 'nodeunit']);
+
+  // Testing
+  grunt.registerTask('test', ['nodeunit']);
 };
