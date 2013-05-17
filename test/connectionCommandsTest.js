@@ -370,6 +370,18 @@ module.exports = {
   },
 
 
+  showConnection: function(test) {
+    var cli = this.cli,
+        input = ['showConnection'];
+
+    cli.prompt = function() {
+      test.done();
+    };
+
+    cli.connectionCommands._showConnection(input, cli);
+  },
+
+
   uuids: {
     oneArgument: function(test) {
       var cli = this.cli,
