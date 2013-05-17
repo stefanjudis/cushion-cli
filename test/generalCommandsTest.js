@@ -266,10 +266,10 @@ module.exports = {
   listDatabases: function(test) {
     var cli = this.cli;
 
-    cli.connectionCallbacks.listDatabases = function(error, databases) {
-      test.ok(!error);
-      test.ok(databases);
-      test.ok(databases instanceof Array);
+    cli.cushion.listDatabases = function(callback) {
+      test.strictEqual(typeof callback, 'function');
+      test.strictEqual(callback instanceof Function, true);
+      test.strictEqual(arguments.length, 1);
       test.done();
     };
 
