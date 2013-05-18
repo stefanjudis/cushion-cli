@@ -260,12 +260,12 @@ module.exports = {
           cli.connections.connection = 'foo';
 
           this.cFile._writeConnections = function(connections, callback) {
-              test.strictEqual(typeof connections, 'object');
-              test.strictEqual(connections instanceof Object, true);
-              test.strictEqual(Object.keys(connections).length, 0);
+            test.strictEqual(typeof connections, 'object');
+            test.strictEqual(connections instanceof Object, true);
+            test.strictEqual(Object.keys(connections).length, 0);
 
-              test.strictEqual(typeof callback, 'function');
-              test.strictEqual(callback instanceof Function, true);
+            test.strictEqual(typeof callback, 'function');
+            test.strictEqual(callback instanceof Function, true);
 
             test.done();
           };
