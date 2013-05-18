@@ -1074,6 +1074,8 @@ connection ✩ 127.0.0.1 ✩ ->
 
 **Description:** Delete a particular role of current user.
 
+**! This command is supported by auto-completion for the wished role !**
+
 **Example:**
 
 ```
