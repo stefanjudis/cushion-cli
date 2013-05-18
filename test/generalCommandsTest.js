@@ -229,9 +229,8 @@ module.exports = {
 
   database: {
     databaseUp: function(test) {
-      var cli = this.cli;
-
-      this.input = ['database', 'testDatabase'];
+      var cli = this.cli,
+          input = ['database', 'testDatabase'];
 
       cli.prompt = function() {
         test.strictEqual(cli.level, 'database');
@@ -241,13 +240,12 @@ module.exports = {
         test.done();
       };
 
-      cli.generalCommands._database(this.input, cli);
+      cli.generalCommands._database(input, cli);
     },
 
     databaseDown: function(test) {
-      var cli = this.cli;
-
-      this.input = ['database'];
+      var cli = this.cli,
+          input = ['database'];
 
       cli.level = 'document';
       cli.db = cli.cushion.database('testDatabase');
@@ -259,7 +257,7 @@ module.exports = {
         test.done();
       };
 
-      cli.generalCommands._database(this.input, cli);
+      cli.generalCommands._database(input, cli);
     }
   },
 
