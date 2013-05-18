@@ -1,7 +1,8 @@
+'use strict';
+
 module.exports = {
   setUp: function(callback) {
-    var Cushion = require('cushion'),
-        config = require('./config');
+    var config = require('./config');
 
     // block console.log for cushion output
     this._console = console.log;

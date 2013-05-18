@@ -1,3 +1,4 @@
+'use strict';
 /*
  * cushion-cli
  * https://github.com/stefanjudis/cushion-cli
@@ -6,7 +7,7 @@
  * Licensed under the MIT license.
  */
 
-var config = module.exports = {
+module.exports = {
   // general config
   host: '127.0.0.1',
   port: 5984,

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   setUp: function(callback) {
     var Cushion = require('cushion'),
