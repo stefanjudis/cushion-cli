@@ -299,6 +299,25 @@ module.exports = {
   },
 
 
+  listAdmins: function(test) {
+    var cli = this.cli,
+        input = ['listAdmins'];
+
+    cli.cushion.config = function(section, callback) {
+      test.strictEqual(typeof section, 'string');
+      test.strictEqual(section, 'admins');
+
+      test.strictEqual(typeof callback, 'function');
+      test.strictEqual(callback instanceof Function, true);
+      test.strictEqual(callback, cli.connectionCallbacks.listAdmins);
+
+      test.done();
+    };
+
+    cli.connectionCommands._listAdmins(input, cli);
+  },
+
+
   log: {
     oneArguments: function(test) {
       var cli = this.cli,

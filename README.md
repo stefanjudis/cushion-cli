@@ -331,6 +331,22 @@ connection ✩ [host] ✩ ->
 
 ```
 
+### listAdmines
+
+**Description:** Retrieve a list of admins of connected CouchDB.
+
+**Examples:**
+
+```
+connection ✩ [host] ✩ -> listAdmins
+
+Response:
+foo:    -hashed-2e385bfb093b1b122730ad2da7923217c2db2284,eeb71f0578016a523b22271d53595fd8
+bar:    -hashed-a4bc105fc8c0cd4bd09c4233cb987e246d3994bb,f7febdc698f7ef097136a196c2d051d8
+
+connection ✩ [host] ✩ ->
+```
+
 ### log [bytes]
 
 **Description:** Retrieve the tail of the server logs of connected CouchDB. Without set bytes param you will get 1000 Bytes of the tail.
