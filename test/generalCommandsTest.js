@@ -26,7 +26,7 @@ module.exports = {
 
 
   tearDown: function(callback) {
-    //console.log = this._console;
+    console.log = this._console;
 
     callback();
   },
