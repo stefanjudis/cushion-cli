@@ -15,6 +15,20 @@ module.exports = {
   },
 
 
+  createParamsObject: function(test) {
+    var array = ['limit=3', 'startkey=doc'],
+        object = this.helper._createParamsObject(array);
+
+    test.strictEqual(typeof object, 'object');
+    test.strictEqual(Object.keys(object).length, 2);
+
+    test.strictEqual(object.limit, '3');
+    test.strictEqual(object.startkey, 'doc');
+
+    test.done();
+  },
+
+
   getAllCommands: function(test) {
     var object = {
           _test: '_test',
