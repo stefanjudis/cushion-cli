@@ -96,7 +96,7 @@ module.exports = {
       };
 
       cli.generalCommands['_..'](this.input, cli);
-    },
+    }
   },
 
 
