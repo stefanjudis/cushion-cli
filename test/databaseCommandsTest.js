@@ -62,5 +62,37 @@ module.exports = {
 
       cli.databaseCommands._allViews(input, cli);
     }
+  },
+
+
+  document: {
+    withId: function(test) {
+      var cli = this.cli,
+          input = ['document', 'id'];
+
+      cli.prompt = function() {
+        test.strictEqual(cli.level, 'document');
+        test.strictEqual(cli.name, 'id');
+        test.strictEqual(typeof cli.doc, 'object');
+        // check for prototype should be implemented here as well
+        test.done();
+      };
+
+      cli.databaseCommands._document(input, cli);
+    },
+    withoutId: function(test) {
+      var cli = this.cli,
+          input = ['document'];
+
+      cli.prompt = function() {
+        test.strictEqual(cli.level, 'document');
+        test.strictEqual(cli.name, '...');
+        test.strictEqual(typeof cli.doc, 'object');
+        // check for prototype should be implemented here as well
+        test.done();
+      };
+
+      cli.databaseCommands._document(input, cli);
+    }
   }
 };
