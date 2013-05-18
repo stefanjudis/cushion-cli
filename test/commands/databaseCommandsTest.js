@@ -2,20 +2,17 @@
 
 module.exports = {
   setUp: function(callback) {
-    var config = require('./config');
+    var config = require('../config');
 
     // block console.log for cushion output
     this._console = console.log;
     console.log = function(){};
 
-    this.cli = require('../lib/cliRunner');
+    this.cli = require('../../lib/cliRunner');
     this.cli.level = 'database';
     this.cli.name = config.database;
 
     this.cli.db = this.cli.cushion.database(config.database);
-
-    // this.cPrompt = require('../lib/prompt/prompt');
-    // this.cFile = require('../lib/file/file');
 
     callback();
   },

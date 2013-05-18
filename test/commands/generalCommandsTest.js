@@ -3,13 +3,13 @@
 module.exports = {
   setUp: function(callback) {
     var Cushion = require('cushion'),
-        config = require('./config');
+        config = require('../config');
 
     // block console.log for cushion output
     this._console = console.log;
     console.log = function(){};
 
-    this.cli = require('../lib/cliRunner');
+    this.cli = require('../../lib/cliRunner');
     this.cli.level = 'connection';
     this.cli.name = config.host;
     this.cli.cushion = new Cushion.Connection(
@@ -17,7 +17,7 @@ module.exports = {
     );
 
     // only include these guys for testing
-    this.cli.generalCommands = require('../lib/commands/generalCommands');
+    this.cli.generalCommands = require('../../lib/commands/generalCommands');
 
     this.input = ['does', 'not', 'matter', 'here'];
 
@@ -123,7 +123,7 @@ module.exports = {
     connection: function(test) {
       var cli = this.cli,
           connectionCommands = Object.keys(
-                                  require('../lib/commands/connectionCommands')
+                                  require('../../lib/commands/connectionCommands')
                                 ),
           connectionCommandsLength = connectionCommands.length,
           i = 0;
@@ -149,7 +149,7 @@ module.exports = {
     database: function(test) {
       var cli = this.cli,
           databaseCommands = Object.keys(
-                                  require('../lib/commands/databaseCommands')
+                                  require('../../lib/commands/databaseCommands')
                                 ),
           databaseCommandsLength = databaseCommands.length,
           i = 0;
@@ -175,7 +175,7 @@ module.exports = {
     document: function(test) {
       var cli = this.cli,
           documentCommands = Object.keys(
-                                  require('../lib/commands/documentCommands')
+                                  require('../../lib/commands/documentCommands')
                                 ),
           documentCommandsLength = documentCommands.length,
           i = 0;
@@ -201,7 +201,7 @@ module.exports = {
     user: function(test) {
       var cli = this.cli,
           userCommands = Object.keys(
-                                  require('../lib/commands/userCommands')
+                                  require('../../lib/commands/userCommands')
                                 ),
           userCommandsLength = userCommands.length,
           i = 0;

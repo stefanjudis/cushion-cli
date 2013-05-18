@@ -2,7 +2,7 @@
 
 module.exports = {
   setUp: function(callback) {
-    this.helper = require('../lib/helper/helper');
+    this.helper = require('../../lib/helper/helper');
 
     callback();
   },

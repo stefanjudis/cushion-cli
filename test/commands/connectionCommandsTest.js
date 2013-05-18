@@ -3,21 +3,21 @@
 module.exports = {
   setUp: function(callback) {
     var Cushion = require('cushion'),
-        config = require('./config');
+        config = require('../config');
 
     // block console.log for cushion output
     this._console = console.log;
     console.log = function(){};
 
-    this.cli = require('../lib/cliRunner');
+    this.cli = require('../../lib/cliRunner');
     this.cli.level = 'connection';
     this.cli.name = config.host;
     this.cli.cushion = new Cushion.Connection(
       config.host, config.port, config.name, config.password
     );
 
-    this.cPrompt = require('../lib/prompt/prompt');
-    this.cFile = require('../lib/file/file');
+    this.cPrompt = require('../../lib/prompt/prompt');
+    this.cFile = require('../../lib/file/file');
 
     callback();
   },
