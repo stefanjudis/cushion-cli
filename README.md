@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/stefanjudis/cushion-cli.png?branch=master)](https://travis-ci.org/stefanjudis/cushion-cli)
 [![NPM version](https://badge.fury.io/js/cushion-cli.png)](http://badge.fury.io/js/cushion-cli)
+[![Dependency Status](https://gemnasium.com/stefanjudis/cushion-cli.png)](https://gemnasium.com/stefanjudis/cushion-cli)
 
 
 ## Your are a command line hero. And you like CouchDB. Maybe cushion-cli is something for you.
