@@ -42,8 +42,8 @@ module.exports = {
       cli.databaseCommands._allViews(input, cli);
     },
     twoArguments: function(test) {
-        var cli = this.cli,
-            input = ['allViews', 'foo'];
+      var cli = this.cli,
+          input = ['allViews', 'foo'];
 
       cli.db.document = function(path) {
         test.strictEqual(path, '_design/foo');

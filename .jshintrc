@@ -7,7 +7,6 @@
   "debug": false,
   "eqeqeq": true,
   "eqnull": false,
-  "es5": true,
   "esnext": false,
   "evil": false,
   "forin": true,

@@ -31,10 +31,10 @@ module.exports = {
 
   getAllCommands: function(test) {
     var object = {
-          _test: '_test',
-          __test : '__test',
-          _simpleCommand: '_simpleCommand'
-        },
+      _test: '_test',
+      __test : '__test',
+      _simpleCommand: '_simpleCommand'
+    },
         result = this.helper._getAllCommands(object);
 
     test.strictEqual(result instanceof Array, true);

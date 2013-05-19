@@ -68,7 +68,7 @@ module.exports = {
         test.done();
       };
 
-        cli.connectionCommands._config(input, cli);
+      cli.connectionCommands._config(input, cli);
     },
     fourArguments: function(test) {
       var cli = this.cli,
