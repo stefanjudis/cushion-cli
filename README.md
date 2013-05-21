@@ -332,7 +332,7 @@ connection ✩ [host] ✩ ->
 
 ```
 
-### listAdmines
+### listAdmins
 
 **Description:** Retrieve a list of admins of connected CouchDB.
 
