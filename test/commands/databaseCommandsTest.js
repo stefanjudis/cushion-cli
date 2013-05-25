@@ -25,6 +25,24 @@ module.exports = {
   },
 
 
+  allDesignDocuments: function(test) {
+    var cli = this.cli,
+        allDocuments = cli.db.allDocuments,
+        input = ['allDesignDocuments'];
+
+
+    cli.db.allDocuments = function(callback) {
+      test.strictEqual(arguments.length, 1);
+      test.strictEqual(typeof callback, 'function');
+      test.done();
+    };
+
+    cli.databaseCommands._allDesignDocuments(input, cli);
+
+    cli.db.allDocuments = allDocuments;
+  },
+
+
   allViews: {
     oneArgument: function(test) {
       var cli = this.cli,
@@ -91,6 +109,49 @@ module.exports = {
       };
 
       cli.databaseCommands._document(input, cli);
+    }
+  },
+
+
+  filterDesigns: {
+    withError: function(test) {
+      var cli = this.cli,
+          error = { foo: 'bar' },
+          showError = cli.databaseCallbacks.showError;
+
+      cli.databaseCallbacks.showError = function(errorObject) {
+        test.strictEqual(arguments.length, 1);
+        test.strictEqual(errorObject, error);
+        test.done();
+      };
+
+      cli.databaseCommands.__filterDesigns(error, {}, {});
+
+      cli.databaseCallbacks.showError = showError;
+    },
+    withoutError: function(test) {
+      var cli = this.cli,
+          allDesignDocuments = cli.databaseCallbacks.allDesignDocuments,
+          allDesignDocs = {
+        '_design/foo': 'foo',
+        '_design/bar': 'bar',
+        'bar': 'bar'
+      },
+          info = {};
+
+      cli.databaseCallbacks.allDesignDocuments = function(designDocs) {
+        test.strictEqual(arguments.length, 1);
+        test.strictEqual(typeof designDocs, 'object');
+        test.strictEqual(designDocs instanceof Array, true);
+        test.strictEqual(designDocs.length, 2);
+        test.strictEqual(designDocs[0], 'foo');
+        test.strictEqual(designDocs[1], 'bar');
+        test.done();
+      };
+
+      cli.databaseCommands.__filterDesigns(null, info, allDesignDocs);
+
+      cli.databaseCallbacks.allDesignDocuments = allDesignDocuments;
     }
   }
 };
