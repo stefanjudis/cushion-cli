@@ -25,6 +25,63 @@ module.exports = {
   },
 
 
+  allDocuments: {
+    oneArgument: function(test) {
+      var cli = this.cli,
+          allDocuments = cli.db.allDocuments,
+          input = ['allDocuments'];
+
+      cli.db.allDocuments = function(callback) {
+        test.strictEqual(arguments.length, 1);
+        test.strictEqual(typeof callback, 'function');
+        test.strictEqual(callback, cli.databaseCallbacks.allDocuments);
+        test.done();
+      };
+
+      cli.databaseCommands._allDocuments(input, cli);
+
+      cli.db.allDocuments = allDocuments;
+    },
+    twoArguments: {
+      validArguments: function(test) {
+        var cli = this.cli,
+            allDocuments = cli.db.allDocuments,
+            input = ['allDocuments', 'foo=bar'];
+
+        cli.db.allDocuments = function(paramsObject, callback) {
+          test.strictEqual(arguments.length, 2);
+
+          test.strictEqual(typeof paramsObject, 'object');
+          test.strictEqual(paramsObject.foo, 'bar');
+          test.strictEqual(Object.keys(paramsObject).length, 1);
+
+          test.strictEqual(typeof callback, 'function');
+          test.strictEqual(callback, cli.databaseCallbacks.allDocuments);
+
+          test.done();
+        };
+
+        cli.databaseCommands._allDocuments(input, cli);
+
+        cli.db.allDocuments = allDocuments;
+      },
+      invalidArguments: function(test) {
+        var cli = this.cli,
+            input = ['allDocuments', 'foo'];
+
+        console.log = function(message) {
+          test.strictEqual(arguments.length, 1);
+          test.strictEqual(typeof message, 'string');
+        }
+        cli.prompt = function() {
+          test.done();
+        };
+
+        cli.databaseCommands._allDocuments(input, cli);
+      },
+    }
+  },
+
   allDesignDocuments: function(test) {
     var cli = this.cli,
         allDocuments = cli.db.allDocuments,

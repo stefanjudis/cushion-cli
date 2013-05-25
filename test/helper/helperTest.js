@@ -15,17 +15,27 @@ module.exports = {
   },
 
 
-  createParamsObject: function(test) {
-    var array = ['limit=3', 'startkey=doc'],
-        object = this.helper._createParamsObject(array);
+  createParamsObject: {
+    validInput: function(test) {
+      var array = ['limit=3', 'startkey=doc'],
+          object = this.helper._createParamsObject(array);
 
-    test.strictEqual(typeof object, 'object');
-    test.strictEqual(Object.keys(object).length, 2);
+      test.strictEqual(typeof object, 'object');
+      test.strictEqual(Object.keys(object).length, 2);
 
-    test.strictEqual(object.limit, '3');
-    test.strictEqual(object.startkey, 'doc');
+      test.strictEqual(object.limit, '3');
+      test.strictEqual(object.startkey, 'doc');
 
-    test.done();
+      test.done();
+    },
+    invalidInput: function(test) {
+      var array = ['limit=3', 'startkey'],
+          object = this.helper._createParamsObject(array);
+
+      test.strictEqual(typeof object, 'undefined');
+
+      test.done();
+    }
   },
 
 
