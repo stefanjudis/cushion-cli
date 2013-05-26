@@ -210,5 +210,96 @@ module.exports = {
 
       cli.databaseCallbacks.allDesignDocuments = allDesignDocuments;
     }
+  },
+
+
+  view: {
+    oneArgument: function(test) {
+      var cli = this.cli,
+          input = ['view'];
+
+      console.log = function(message) {
+        test.strictEqual(arguments.length, 1);
+        test.strictEqual(typeof message, 'string');
+      };
+
+      cli.prompt = function() {
+        test.done();
+      };
+
+      cli.databaseCommands._view(input, cli);
+    },
+    twoArguments: function(test) {
+      var cli = this.cli,
+          input = ['view', 'entries'];
+
+      console.log = function(message) {
+        test.strictEqual(arguments.length, 1);
+        test.strictEqual(typeof message, 'string');
+      };
+
+      cli.prompt = function() {
+        test.done();
+      };
+
+      cli.databaseCommands._view(input, cli);
+    },
+    threeArguments: function(test) {
+      var cli = this.cli,
+          input = ['view', 'entries', 'all'],
+          view = cli.db.view;
+
+      cli.db.view = function() {
+        test.strictEqual(arguments.length, 4);
+        test.strictEqual(arguments[0], 'entries');
+        test.strictEqual(arguments[1], 'all');
+        test.strictEqual(Object.keys(arguments[2]).length, 0);
+        test.strictEqual(typeof arguments[3], 'function');
+        test.strictEqual(arguments[3], cli.databaseCallbacks.view);
+        test.done()
+      };
+
+      cli.databaseCommands._view(input, cli);
+
+      cli.db.view = view;
+    },
+    fourArguments: {
+      withValidParams: function(test) {
+        var cli = this.cli,
+            input = ['view', 'entries', 'all', 'limit=3'],
+            view = cli.db.view;
+
+        cli.db.view = function() {
+          test.strictEqual(arguments.length, 4);
+          test.strictEqual(arguments[0], 'entries');
+          test.strictEqual(arguments[1], 'all');
+          test.strictEqual(Object.keys(arguments[2]).length, 1);
+          test.strictEqual(Object.keys(arguments[2])[0], 'limit');
+          test.strictEqual(arguments[2].limit, '3');
+          test.strictEqual(typeof arguments[3], 'function');
+          test.strictEqual(arguments[3], cli.databaseCallbacks.view);
+          test.done()
+        };
+
+        cli.databaseCommands._view(input, cli);
+
+        cli.db.view = view;
+      },
+      withInvalidParams: function(test) {
+        var cli = this.cli,
+            input = ['view', 'entries', 'all', 'limit'];
+
+        console.log = function(message) {
+          test.strictEqual(arguments.length, 1);
+          test.strictEqual(typeof message, 'string');
+        };
+
+        cli.prompt = function() {
+          test.done();
+        };
+
+        cli.databaseCommands._view(input, cli);
+      }
+    }
   }
 };
