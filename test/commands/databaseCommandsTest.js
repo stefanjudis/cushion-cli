@@ -252,13 +252,93 @@ module.exports = {
       cli.db.temporaryView = tmpView;
     },
     threeArguments: {
+      validInput: {
+        withReduceFunction: function(test) {
+          var cli = this.cli,
+              input = [
+            'tmpView',
+            '\'function(doc) {emit(doc._id, doc);}\'',
+            '\'function(keys, values, rereduce){return sum(); }\''
+          ],
+              tmpView = cli.db.temporaryView;
+
+          cli.db.temporaryView = function() {
+            test.strictEqual(arguments.length, 3);
+            test.strictEqual(typeof arguments[0], 'string');
+            test.strictEqual(arguments[0], '\'function(doc) {emit(doc._id, doc);}\'');
+
+            test.strictEqual(typeof arguments[1], 'string');
+            test.strictEqual(arguments[1], '\'function(keys, values, rereduce){return sum(); }\'');
+
+            test.strictEqual(typeof arguments[2], 'function');
+            test.strictEqual(arguments[2] instanceof Function, true);
+            test.strictEqual(arguments[2], cli.databaseCallbacks.view);
+
+            test.done();
+          };
+
+          cli.databaseCommands._tmpView(input, cli);
+
+          cli.db.temporaryView = tmpView;
+        },
+        withouReduceFunction: function(test) {
+          var cli = this.cli,
+              input = ['tmpView','\'function(doc) {emit(doc._id, doc);}\'','limit=3'],
+              tmpView = cli.db.temporaryView;
+
+          cli.db.temporaryView = function() {
+            test.strictEqual(arguments.length, 3);
+            test.strictEqual(typeof arguments[0], 'string');
+            test.strictEqual(arguments[0], '\'function(doc) {emit(doc._id, doc);}\'');
+
+            test.strictEqual(typeof arguments[1], 'object');
+            test.strictEqual(Object.keys(arguments[1]).length, 1);
+            test.strictEqual(Object.keys(arguments[1])[0], 'limit');
+            test.strictEqual(arguments[1].limit, '3');
+
+            test.strictEqual(typeof arguments[2], 'function');
+            test.strictEqual(arguments[2] instanceof Function, true);
+            test.strictEqual(arguments[2], cli.databaseCallbacks.view);
+
+            test.done();
+          };
+
+          cli.databaseCommands._tmpView(input, cli);
+
+          cli.db.temporaryView = tmpView;
+        }
+      },
+      invalidInput: function(test) {
+        var cli = this.cli,
+            input = ['tmpView', '\'function(doc) {emit(doc._id, doc);}\'', 'limit=3'];
+
+        console.log = function(message) {
+          test.strictEqual(arguments.length, 1);
+          test.strictEqual(typeof message, 'string');
+        };
+
+        cli.prompt = function() {
+          test.strictEqual(arguments.length, 0);
+          test.done();
+        }
+
+        cli.databaseCommands._tmpView(input, cli);
+      }
+    },
+    fourArguments: {
       validInput: function(test) {
         var cli = this.cli,
-            input = ['tmpView', '\'function(doc) {emit(doc._id, doc);}\'', 'limit=3'],
+            input = [
+          'tmpView',
+          '\'function(doc) {emit(doc._id, doc);}\'',
+          'limit=3',
+          '\'function(keys, values, rereduce){return sum(); }\''
+        ],
             tmpView = cli.db.temporaryView;
 
         cli.db.temporaryView = function() {
-          test.strictEqual(arguments.length, 3);
+          test.strictEqual(arguments.length, 4);
+
           test.strictEqual(typeof arguments[0], 'string');
           test.strictEqual(arguments[0], '\'function(doc) {emit(doc._id, doc);}\'');
 
@@ -267,9 +347,12 @@ module.exports = {
           test.strictEqual(Object.keys(arguments[1])[0], 'limit');
           test.strictEqual(arguments[1].limit, '3');
 
-          test.strictEqual(typeof arguments[2], 'function');
-          test.strictEqual(arguments[2] instanceof Function, true);
-          test.strictEqual(arguments[2], cli.databaseCallbacks.view);
+          test.strictEqual(typeof arguments[2], 'string');
+          test.strictEqual(arguments[2], '\'function(keys, values, rereduce){return sum(); }\'');
+
+          test.strictEqual(typeof arguments[3], 'function');
+          test.strictEqual(arguments[3] instanceof Function, true);
+          test.strictEqual(arguments[3], cli.databaseCallbacks.view);
 
           test.done();
         };
@@ -280,7 +363,12 @@ module.exports = {
       },
       invalidInput: function(test) {
         var cli = this.cli,
-            input = ['tmpView', '\'function(doc) {emit(doc._id, doc);}\'', 'limit=3'];
+            input = [
+          'tmpView',
+          '\'function(doc) {emit(doc._id, doc);}\'',
+          'limit',
+          'function(keys, values, rereduce){return sum(); }'
+        ];
 
         console.log = function(message) {
           test.strictEqual(arguments.length, 1);
