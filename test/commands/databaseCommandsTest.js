@@ -213,6 +213,91 @@ module.exports = {
   },
 
 
+  tmpView: {
+    oneArgument: function(test) {
+      var cli = this.cli,
+          input = ['tmpView'];
+
+      console.log = function(message) {
+        test.strictEqual(arguments.length, 1);
+        test.strictEqual(typeof message, 'string');
+      };
+
+      cli.prompt = function() {
+        test.strictEqual(arguments.length, 0);
+        test.done();
+      }
+
+      cli.databaseCommands._tmpView(input, cli);
+    },
+    twoArguments: function(test) {
+      var cli = this.cli,
+          input = ['tmpView', '\'function(doc) {emit(doc._id, doc);}\''],
+          tmpView = cli.db.temporaryView;
+
+      cli.db.temporaryView = function() {
+        test.strictEqual(arguments.length, 2);
+        test.strictEqual(typeof arguments[0], 'string');
+        test.strictEqual(arguments[0], '\'function(doc) {emit(doc._id, doc);}\'');
+
+        test.strictEqual(typeof arguments[1], 'function');
+        test.strictEqual(arguments[1] instanceof Function, true);
+        test.strictEqual(arguments[1], cli.databaseCallbacks.view);
+
+        test.done();
+      };
+
+      cli.databaseCommands._tmpView(input, cli);
+
+      cli.db.temporaryView = tmpView;
+    },
+    threeArguments: {
+      validInput: function(test) {
+        var cli = this.cli,
+            input = ['tmpView', '\'function(doc) {emit(doc._id, doc);}\'', 'limit=3'],
+            tmpView = cli.db.temporaryView;
+
+        cli.db.temporaryView = function() {
+          test.strictEqual(arguments.length, 3);
+          test.strictEqual(typeof arguments[0], 'string');
+          test.strictEqual(arguments[0], '\'function(doc) {emit(doc._id, doc);}\'');
+
+          test.strictEqual(typeof arguments[1], 'object');
+          test.strictEqual(Object.keys(arguments[1]).length, 1);
+          test.strictEqual(Object.keys(arguments[1])[0], 'limit');
+          test.strictEqual(arguments[1].limit, '3');
+
+          test.strictEqual(typeof arguments[2], 'function');
+          test.strictEqual(arguments[2] instanceof Function, true);
+          test.strictEqual(arguments[2], cli.databaseCallbacks.view);
+
+          test.done();
+        };
+
+        cli.databaseCommands._tmpView(input, cli);
+
+        cli.db.temporaryView = tmpView;
+      },
+      invalidInput: function(test) {
+        var cli = this.cli,
+            input = ['tmpView', '\'function(doc) {emit(doc._id, doc);}\'', 'limit=3'];
+
+        console.log = function(message) {
+          test.strictEqual(arguments.length, 1);
+          test.strictEqual(typeof message, 'string');
+        };
+
+        cli.prompt = function() {
+          test.strictEqual(arguments.length, 0);
+          test.done();
+        }
+
+        cli.databaseCommands._tmpView(input, cli);
+      }
+    }
+  },
+
+
   view: {
     oneArgument: function(test) {
       var cli = this.cli,
