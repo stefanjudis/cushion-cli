@@ -281,7 +281,7 @@ module.exports = {
 
           cli.db.temporaryView = tmpView;
         },
-        withouReduceFunction: function(test) {
+        withoutReduceFunction: function(test) {
           var cli = this.cli,
               input = ['tmpView','\'function(doc) {emit(doc._id, doc);}\'','limit=3'],
               tmpView = cli.db.temporaryView;
