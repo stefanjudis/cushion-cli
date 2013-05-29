@@ -74,6 +74,24 @@ module.exports = {
         cli.documentCommands._content(input, cli);
       }
     }
-  }
+  },
 
+
+  simpleCommand: function(test) {
+    var cli = this.cli,
+        input = ['content'],
+        content = cli.doc.content;
+
+    cli.doc.content = function() {
+      test.strictEqual(arguments.length, 1);
+      test.strictEqual(typeof arguments[0], 'function');
+      test.strictEqual(arguments[0], cli.documentCallbacks.content);
+
+      test.done();
+    };
+
+    cli.documentCommands._simpleCommand(input, cli);
+
+    cli.doc.content = content;
+  }
 };
