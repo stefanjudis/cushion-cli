@@ -403,6 +403,24 @@ module.exports = {
   },
 
 
+  simpleCommand: function(test) {
+    var cli = this.cli,
+        input = ['activeTasks'],
+        activeTasks = cli.cushion.activeTasks;
+
+    cli.cushion.activeTasks = function() {
+      test.strictEqual(arguments.length, 1);
+      test.strictEqual(typeof arguments[0], 'function');
+      test.strictEqual(arguments[0], cli.connectionCallbacks.activeTasks);
+
+      test.done();
+    };
+
+    cli.connectionCommands._simpleCommand(input, cli);
+
+    cli.cushion.activeTasks = activeTasks;
+  },
+
   uuids: {
     oneArgument: function(test) {
       var cli = this.cli,

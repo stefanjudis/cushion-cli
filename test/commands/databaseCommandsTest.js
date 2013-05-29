@@ -213,6 +213,25 @@ module.exports = {
   },
 
 
+  simpleCommand: function(test) {
+    var cli = this.cli,
+        input = ['cleanup'],
+        cleanup = cli.db.cleanup;
+
+    cli.db.cleanup = function() {
+      test.strictEqual(arguments.length, 1);
+      test.strictEqual(typeof arguments[0], 'function');
+      test.strictEqual(arguments[0], cli.databaseCallbacks.cleanup);
+
+      test.done();
+    };
+
+    cli.databaseCommands._simpleCommand(input, cli);
+
+    cli.db.cleanup = cleanup;
+  },
+
+
   tmpView: {
     oneArgument: function(test) {
       var cli = this.cli,
