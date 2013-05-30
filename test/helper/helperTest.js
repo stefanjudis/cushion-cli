@@ -2,6 +2,10 @@
 
 module.exports = {
   setUp: function(callback) {
+    // block console.log for cushion output
+    this._console = console.log;
+    console.log = function(){};
+
     this.helper = require('../../lib/helper/helper');
 
     callback();

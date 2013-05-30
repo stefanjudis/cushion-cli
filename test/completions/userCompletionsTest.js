@@ -2,6 +2,10 @@
 
 module.exports = {
   setUp: function(callback) {
+    // block console.log for cushion output
+    this._console = console.log;
+    console.log = function(){};
+
     this.cli = require('../../lib/cliRunner');
     this.completions = require('../../lib/completions/userCompletions');
 
@@ -10,6 +14,8 @@ module.exports = {
 
 
   tearDown: function(callback) {
+    console.log = this._console;
+
     callback();
   },
 
