@@ -11,6 +11,8 @@ module.exports = {
     this.cli.user = {};
     this.cli.user.name = 'foo';
 
+    this.prompt = require('../../lib/prompt/prompt');
+
     callback();
   },
 
@@ -37,7 +39,8 @@ module.exports = {
     },
     twoArguments: function(test) {
       var cli = this.cli,
-          input = ['addRole', 'role']
+          input = ['addRole', 'role'],
+          addRole = cli.user.addRole;
 
       cli.user.addRole = function(name, args, callback) {
         test.strictEqual(name, 'foo');
@@ -53,7 +56,92 @@ module.exports = {
       }
 
       cli.userCommands._addRole(input, cli);
+
+      cli.user.addRole = addRole;
     }
+  },
+
+
+  create: {
+    oneArgument: function(test) {
+      var cli = this.cli,
+          input = ['create'],
+          promptGetUserPassword = this.prompt._promptGetUserPassword;
+
+      cli.user.name = 'john';
+      cli.user.create = function() {};
+
+      this.prompt._promptGetUserPassword = function() {
+        test.strictEqual(arguments.length, 3);
+
+        test.strictEqual(typeof arguments[0], 'string');
+        test.strictEqual(arguments[0], 'john');
+
+        test.strictEqual(typeof arguments[1], 'function');
+        test.strictEqual(arguments[1], cli.userCallbacks.create);
+
+        test.strictEqual(typeof arguments[2], 'function');
+        test.strictEqual(arguments[2], cli.user.create);
+
+        test.done();
+      };
+
+      cli.userCommands._create(input, cli);
+
+      this.prompt._promptGetUserPassword = promptGetUserPassword;
+
+    },
+    twoArguments: function(test) {
+      var cli = this.cli,
+          input = ['create', 'xxxx'],
+          create = cli.user.create;
+
+      cli.user.name = 'john';
+
+      cli.user.create = function() {
+        test.strictEqual(arguments.length, 3);
+
+        test.strictEqual(typeof arguments[0], 'string');
+        test.strictEqual(arguments[0], 'john');
+
+        test.strictEqual(typeof arguments[1], 'string');
+        test.strictEqual(arguments[1], 'xxxx');
+
+        test.strictEqual(typeof arguments[2], 'function');
+        test.strictEqual(arguments[2], cli.userCallbacks.create);
+
+        test.done();
+      };
+
+      cli.userCommands._create(input, cli);
+
+      cli.user.create = create;
+    }
+  },
+
+
+  delete: function(test) {
+    var cli = this.cli,
+        input = ['delete'],
+        deleteFunction = cli.user.delete;
+
+    cli.user.name = 'john';
+
+    cli.user.delete = function(name, callback) {
+      test.strictEqual(arguments.length, 2);
+
+      test.strictEqual(typeof name, 'string');
+      test.strictEqual(name, 'john');
+
+      test.strictEqual(typeof callback, 'function');
+      test.strictEqual(callback, cli.userCallbacks.delete);
+
+      test.done();
+    };
+
+    cli.userCommands._delete(input, cli);
+
+    cli.user.delete = deleteFunction;
   },
 
 
