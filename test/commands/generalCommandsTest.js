@@ -21,6 +21,8 @@ module.exports = {
 
     this.input = ['does', 'not', 'matter', 'here'];
 
+    this.config = config;
+
     callback();
   },
 
@@ -317,19 +319,36 @@ module.exports = {
   },
 
 
-  user: function(test) {
-    var cli = this.cli;
+  user: {
+    oneArgument: function(test) {
+      var cli = this.cli,
+          config = this.config;
 
-    this.input = ['user', 'stefan'];
+      this.input = ['user'];
 
-    cli.prompt = function() {
-      test.strictEqual(cli.level, 'user');
-      test.strictEqual(cli.name, 'stefan');
-      test.ok(cli.user);
-      test.strictEqual(cli.user.name, 'stefan');
-      test.done();
-    };
+      cli.prompt = function() {
+        test.strictEqual(cli.level, 'connection');
+        test.strictEqual(cli.name, config.host);
 
-    cli.generalCommands._user(this.input, cli);
+        test.done();
+      };
+
+      cli.generalCommands._user(this.input, cli);
+    },
+    twoArguments: function(test) {
+      var cli = this.cli;
+
+      this.input = ['user', 'stefan'];
+
+      cli.prompt = function() {
+        test.strictEqual(cli.level, 'user');
+        test.strictEqual(cli.name, 'stefan');
+        test.ok(cli.user);
+        test.strictEqual(cli.user.name, 'stefan');
+        test.done();
+      };
+
+      cli.generalCommands._user(this.input, cli);
+    }
   }
 };
