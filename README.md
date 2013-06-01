@@ -726,28 +726,6 @@ true
 database ✩ [databaseName] ✩ ->
 ```
 
-### exists
-
-**Description:** Check if given database already exists. If not, you can create it. If so, you can delete it.
-
-**Examples:**
-
-```
-atabase ✩ [existingDatabase] ✩ -> exists
-
-Database already exists.
-
-database ✩ [existingDatabase] ✩
-```
-
-```
-database ✩ [notExistingDatabase] ✩ -> exists
-
-Database doesn't exist yet.
-
-database ✩ [notExistingDatabase] ✩ ->
-```
-
 ### info
 
 **Description:** Get information about connected database.
