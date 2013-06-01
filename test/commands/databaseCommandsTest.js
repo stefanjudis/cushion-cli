@@ -12,6 +12,13 @@ module.exports = {
     this.cli.level = 'database';
     this.cli.name = config.database;
 
+    this.cli._setCushion(
+      config.name,
+      config.password,
+      config.host,
+      config.port
+    );
+
     this.cli.db = this.cli.cushion.database(config.database);
 
     callback();
