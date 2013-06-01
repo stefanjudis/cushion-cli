@@ -8,6 +8,7 @@ module.exports = {
 
     this.cli = require('../../lib/cliRunner');
     this.cli.level = 'document';
+    this.cli.doc = {};
 
     callback();
   },

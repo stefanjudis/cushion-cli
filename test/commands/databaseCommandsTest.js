@@ -213,6 +213,56 @@ module.exports = {
   },
 
 
+  setDocumentAndSwitchLevel: {
+    withId: function(test) {
+      var cli = this.cli,
+          documentConstructor = cli.db.document;
+
+
+      cli.db.document = function(id) {
+        test.strictEqual(arguments.length, 1);
+
+        test.strictEqual(typeof id, 'string');
+
+        return {
+          load: function() {
+            test.strictEqual(typeof cli.name, 'string');
+            test.strictEqual(cli.name, 'id');
+
+            test.done();
+          }
+        }
+      }
+
+      cli.databaseCommands.__setDocumentAndSwitchLevel(cli, 'id');
+
+      cli.db.document = documentConstructor;
+    },
+    withoutId: function(test) {
+      var cli = this.cli,
+          documentConstructor = cli.db.document;
+
+
+      cli.db.document = function() {
+        test.strictEqual(arguments.length, 0);
+
+        return {
+          load: function() {
+            test.strictEqual(typeof cli.name, 'string');
+            test.strictEqual(cli.name, '...'),
+
+            test.done();
+          }
+        }
+      }
+
+      cli.databaseCommands.__setDocumentAndSwitchLevel(cli, undefined);
+
+      cli.db.document = documentConstructor;
+    }
+  },
+
+
   simpleCommand: function(test) {
     var cli = this.cli,
         input = ['cleanup'],
