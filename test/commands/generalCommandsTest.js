@@ -112,6 +112,7 @@ module.exports = {
       test.strictEqual(cli.level, 'connection');
       test.strictEqual(cli.name, cli.cushion.option('host'));
       test.strictEqual(cli.db, undefined);
+      test.strictEqual(cli.unsavedChanges, false);
       test.done();
     };
 
@@ -230,34 +231,59 @@ module.exports = {
   database: {
     databaseUp: function(test) {
       var cli = this.cli,
-          input = ['database', 'testDatabase'];
+          input = ['database', 'testDatabase'],
+          database = cli.cushion.database;
 
-      cli.prompt = function() {
-        test.strictEqual(cli.level, 'database');
-        test.strictEqual(cli.name, 'testDatabase');
-        test.ok(cli.db);
-        test.strictEqual(cli.db.name(), 'testDatabase');
-        test.done();
+      cli.cushion.database = function() {
+        return {
+          exists: function(callback) {
+            test.strictEqual(arguments.length, 1);
+
+            test.strictEqual(cli.level, 'database');
+            test.strictEqual(cli.name, 'testDatabase');
+            test.ok(cli.db);
+            test.strictEqual(cli.db.name(), 'testDatabase');
+
+            test.strictEqual(typeof callback, 'function');
+            test.strictEqual(callback, cli.databaseCallbacks.exists);
+
+            test.done();
+          },
+          name: function() {
+            // we don't want to test cushion in here
+            return 'testDatabase';
+          }
+        }
       };
 
       cli.generalCommands._database(input, cli);
+
+      cli.cushion.database = database;
     },
 
     databaseDown: function(test) {
       var cli = this.cli,
-          input = ['database'];
+          input = ['database'],
+          exists = cli.db.exists;
 
       cli.level = 'document';
       cli.db = cli.cushion.database('testDatabase');
       cli.name = 'testDocument';
 
-      cli.prompt = function() {
+      cli.db.exists = function(callback) {
         test.strictEqual(cli.level, 'database');
         test.strictEqual(cli.name, 'testDatabase');
+        test.strictEqual(cli.db.name(), 'testDatabase');
+
+        test.strictEqual(typeof callback, 'function');
+        test.strictEqual(callback, cli.databaseCallbacks.exists);
+
         test.done();
       };
 
       cli.generalCommands._database(input, cli);
+
+      cli.db.exists = exists;
     }
   },
 
