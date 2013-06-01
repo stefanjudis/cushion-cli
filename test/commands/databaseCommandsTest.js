@@ -238,6 +238,7 @@ module.exports = {
           load: function() {
             test.strictEqual(typeof cli.name, 'string');
             test.strictEqual(cli.name, 'id');
+            test.strictEqual(cli.level, 'document');
 
             test.done();
           }
@@ -260,6 +261,7 @@ module.exports = {
           load: function() {
             test.strictEqual(typeof cli.name, 'string');
             test.strictEqual(cli.name, '...'),
+            test.strictEqual(cli.level, 'document');
 
             test.done();
           }
