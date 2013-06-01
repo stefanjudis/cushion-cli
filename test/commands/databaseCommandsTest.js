@@ -141,31 +141,41 @@ module.exports = {
   document: {
     withId: function(test) {
       var cli = this.cli,
-          input = ['document', 'id'];
+          input = ['document', 'id'],
+          setDocumentAndSwitchLevel = cli.databaseCommands.__setDocumentAndSwitchLevel;
 
-      cli.prompt = function() {
-        test.strictEqual(cli.level, 'document');
-        test.strictEqual(cli.name, 'id');
-        test.strictEqual(typeof cli.doc, 'object');
-        // check for prototype should be implemented here as well
+      cli.databaseCommands.__setDocumentAndSwitchLevel = function(cliArg, id) {
+        test.strictEqual(arguments.length, 2);
+
+        test.strictEqual(cliArg, cli);
+
+        test.strictEqual(typeof id, 'string');
+        test.strictEqual(id, 'id');
         test.done();
       };
 
       cli.databaseCommands._document(input, cli);
+
+      cli.databaseCommands.__setDocumentAndSwitchLevel = setDocumentAndSwitchLevel;
     },
     withoutId: function(test) {
       var cli = this.cli,
-          input = ['document'];
+          input = ['document'],
+          setDocumentAndSwitchLevel = cli.databaseCommands.__setDocumentAndSwitchLevel;
 
-      cli.prompt = function() {
-        test.strictEqual(cli.level, 'document');
-        test.strictEqual(cli.name, '...');
-        test.strictEqual(typeof cli.doc, 'object');
-        // check for prototype should be implemented here as well
+
+      cli.databaseCommands.__setDocumentAndSwitchLevel = function(cliArg, id) {
+        test.strictEqual(arguments.length, 2);
+
+        test.strictEqual(cliArg, cli);
+
+        test.strictEqual(id, undefined);
         test.done();
       };
 
       cli.databaseCommands._document(input, cli);
+
+      cli.databaseCommands.__setDocumentAndSwitchLevel = setDocumentAndSwitchLevel;
     }
   },
 
