@@ -2,8 +2,7 @@
 
 module.exports = {
   setUp: function(callback) {
-    var Cushion = require('cushion'),
-        config = require('../config');
+    var config = require('../config');
 
     // block console.log for cushion output
     this._console = console.log;
@@ -12,8 +11,12 @@ module.exports = {
     this.cli = require('../../lib/cliRunner');
     this.cli.level = 'connection';
     this.cli.name = config.host;
-    this.cli.cushion = new Cushion.Connection(
-      config.host, config.port, config.name, config.password
+
+    this.cli._setCushion(
+      config.name,
+      config.password,
+      config.host,
+      config.port
     );
 
     // only include these guys for testing
@@ -336,19 +339,33 @@ module.exports = {
       cli.generalCommands._user(this.input, cli);
     },
     twoArguments: function(test) {
-      var cli = this.cli;
+      var cli = this.cli,
+          database  = cli.cushion.database;
 
-      this.input = ['user', 'stefan'];
+      this.input = ['user', 'john'];
 
-      cli.prompt = function() {
+      cli.cushion.database = function(name) {
+        test.strictEqual(arguments.length, 1);
+
+        test.strictEqual(typeof name, 'string');
+        test.strictEqual(name, '_users');
+
         test.strictEqual(cli.level, 'user');
-        test.strictEqual(cli.name, 'stefan');
+        test.strictEqual(cli.name, 'john');
+
         test.ok(cli.user);
-        test.strictEqual(cli.user.name, 'stefan');
+        test.strictEqual(cli.user.name, 'john');
+
         test.done();
+
+        return {
+          allDocuments: function() {}
+        };
       };
 
       cli.generalCommands._user(this.input, cli);
+
+      cli.cushion.database = database;
     }
   }
 };
