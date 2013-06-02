@@ -36,9 +36,15 @@
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.5.2",
     "grunt-contrib-watch": "~0.4.3",
-    "grunt-contrib-nodeunit": "~0.1.2"
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "npm": "~1.2.24"
   },
-  "keywords": ["couchdb", "cli", "command line", "cushion"],
+  "keywords": [
+    "couchdb",
+    "cli",
+    "command line",
+    "cushion"
+  ],
   "dependencies": {
     "cushion": ">= 1.6.2",
     "cli-color": ">= 0.1.7",
