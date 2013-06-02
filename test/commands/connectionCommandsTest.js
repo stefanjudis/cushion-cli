@@ -2,8 +2,7 @@
 
 module.exports = {
   setUp: function(callback) {
-    var Cushion = require('cushion'),
-        config = require('../config');
+    var config = require('../config');
 
     // block console.log for cushion output
     this._console = console.log;
@@ -12,8 +11,12 @@ module.exports = {
     this.cli = require('../../lib/cliRunner');
     this.cli.level = 'connection';
     this.cli.name = config.host;
-    this.cli.cushion = new Cushion.Connection(
-      config.host, config.port, config.name, config.password
+
+    this.cli._setCushion(
+      config.name,
+      config.password,
+      config.host,
+      config.port
     );
 
     this.cPrompt = require('../../lib/prompt/prompt');
