@@ -96,7 +96,7 @@ module.exports = {
           documentObject = {
         '_id': 'id'
       },
-          error = false,
+          error = null,
           prompt = cli.prompt;
 
       cli.unsavedChanges = false;
@@ -121,6 +121,103 @@ module.exports = {
       cli.documentCallbacks.load(error, documentObject);
 
       cli.prompt = prompt;
+    }
+  },
+
+
+  save: {
+    errorAppeared: function(test) {
+      var cli = this.cli,
+          error = {
+        'error': 'some_error'
+      },
+          showError = cli.documentCallbacks.showError;
+
+      cli.documentCallbacks.showError = function() {
+        test.strictEqual(arguments.length, 1);
+
+        test.strictEqual(typeof arguments[0], 'object');
+        test.strictEqual(arguments[0].error, 'some_error');
+        test.strictEqual(arguments[0], error);
+
+        test.done();
+      };
+
+      cli.documentCallbacks.save(error);
+
+      cli.documentCallbacks.showError = showError;
+    },
+    noErrorAppeared: {
+      idWasSet: function(test) {
+        var cli = this.cli,
+            error = null,
+            documentObject = {
+          '_id': '12345678'
+        },
+            prompt = cli.prompt;
+
+        cli.name = '12345678';
+        cli.unsavedChanges = true;
+
+        console.log = function() {
+          test.strictEqual(arguments.length, 1);
+          test.strictEqual(typeof arguments[0], 'string');
+        };
+
+        cli.prompt = function() {
+          test.strictEqual(typeof cli.name, 'string');
+          test.strictEqual(cli.name, '12345678');
+
+          test.strictEqual(typeof cli.unsavedChanges, 'boolean');
+          test.strictEqual(cli.unsavedChanges, false);
+
+          test.strictEqual(typeof cli.doc, 'object');
+          test.strictEqual(cli.doc, documentObject);
+          test.strictEqual(typeof cli.doc._id, 'string');
+          test.strictEqual(cli.doc._id, '12345678');
+
+          test.done();
+        };
+
+        cli.documentCallbacks.save(error, documentObject);
+
+        cli.prompt = prompt;
+      },
+      idWasNotSet: function(test) {
+        var cli = this.cli,
+            error = null,
+            documentObject = {
+          '_id': '12345678'
+        },
+            prompt = cli.prompt;
+
+        cli.name = '...';
+        cli.unsavedChanges = true;
+
+        console.log = function() {
+          test.strictEqual(arguments.length, 1);
+          test.strictEqual(typeof arguments[0], 'string');
+        };
+
+        cli.prompt = function() {
+          test.strictEqual(typeof cli.name, 'string');
+          test.strictEqual(cli.name, '12345678');
+
+          test.strictEqual(typeof cli.unsavedChanges, 'boolean');
+          test.strictEqual(cli.unsavedChanges, false);
+
+          test.strictEqual(typeof cli.doc, 'object');
+          test.strictEqual(cli.doc, documentObject);
+          test.strictEqual(typeof cli.doc._id, 'string');
+          test.strictEqual(cli.name, '12345678');
+
+          test.done();
+        };
+
+        cli.documentCallbacks.save(error, documentObject);
+
+        cli.prompt = prompt;
+      }
     }
   }
 };
