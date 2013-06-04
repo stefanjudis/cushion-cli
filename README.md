@@ -1099,6 +1099,8 @@ user ✩ foo ✩ ->
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
 ## Release History
+- 0.3.2 - package.json update to implement newest cushion version
+
 - 0.3.1 - bugfixes for 'unsaved star'
 
 - 0.3.0 - much more test coverage, removed databaseCommand 'exists', 'unsaved star' on database|document|user level
