@@ -213,7 +213,8 @@ module.exports = {
       inputIsName: {
         nameExists: function(test) {
           var cli = this.cli,
-              input = ['deleteConnection', 'connection'];
+              input = ['deleteConnection', 'connection'],
+              writeConnections = this.cFile._writeConnections;
 
           cli.connections = {};
           cli.connections.connection = 'foo';
@@ -230,6 +231,8 @@ module.exports = {
           };
 
           cli.connectionCommands._deleteConnection(input, cli);
+
+          this.cFile._writeConnections = writeConnections;
         },
         nameDoesntExist: function(test) {
           var cli = this.cli,
@@ -257,7 +260,8 @@ module.exports = {
       inputIsIndex: {
         indexExists: function(test) {
           var cli = this.cli,
-              input = ['deleteConnection', '1'];
+              input = ['deleteConnection', '1'],
+              writeConnections = this.cFile._writeConnections;
 
           cli.connections = {};
           cli.connections.connection = 'foo';
@@ -274,6 +278,8 @@ module.exports = {
           };
 
           cli.connectionCommands._deleteConnection(input, cli);
+
+          this.cFile._writeConnections = writeConnections;
         },
         indexDoesntExist: function(test) {
           var cli = this.cli,
@@ -378,7 +384,8 @@ module.exports = {
     },
     twoArguments: function(test) {
       var cli = this.cli,
-          input = ['saveConnection', 'redundantInput'];
+          input = ['saveConnection', 'redundantInput'],
+          writeConnections = this.cFile._writeConnections;
 
       this.cFile._writeConnections = function(connections, callback) {
         test.strictEqual(arguments.length, 2);
@@ -390,6 +397,8 @@ module.exports = {
       };
 
       cli.connectionCommands._saveConnection(input, cli);
+
+      this.cFile._writeConnections = writeConnections;
     }
   },
 
