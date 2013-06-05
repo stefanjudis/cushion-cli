@@ -35,6 +35,47 @@ module.exports = {
   },
 
 
+  getConnections: function(test) {
+    var callbackFunction = function() {},
+        readFile = this.fs.readFile;
+
+    this.fs.readFile = function() {
+      test.strictEqual(arguments.length, 2);
+
+      test.strictEqual(typeof arguments[0], 'string');
+
+      test.strictEqual(typeof arguments[1], 'function');
+      test.strictEqual(arguments[1], callbackFunction);
+
+      test.done();
+    };
+
+    this.cFile.getConnections(callbackFunction);
+
+    this.fs.readFile = readFile;
+  },
+
+
+  readPackageJSON: function(test) {
+    var callbackFunction = function() {},
+        readFile = this.fs.readFile;
+
+    this.fs.readFile = function() {
+      test.strictEqual(arguments.length, 2);
+
+      test.strictEqual(typeof arguments[0], 'string');
+
+      test.strictEqual(typeof arguments[1], 'function');
+      test.strictEqual(arguments[1], callbackFunction);
+
+      test.done();
+    }
+
+    this.cFile.readPackageJSON(callbackFunction);
+
+    this.fs.readFile = readFile;
+  },
+
   writeConnections: function(test) {
     var callbackFunction = function() {},
         connections = {
