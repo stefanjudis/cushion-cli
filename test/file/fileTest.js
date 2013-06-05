@@ -14,6 +14,27 @@ module.exports = {
   },
 
 
+  defaultExists: function(test) {
+    var callbackFunction = function() {},
+        exists = this.fs.exists;
+
+    this.fs.exists = function() {
+      test.strictEqual(arguments.length, 2);
+
+      test.strictEqual(typeof arguments[0], 'string');
+
+      test.strictEqual(typeof arguments[1], 'function');
+      test.strictEqual(arguments[1], callbackFunction);
+
+      test.done();
+    };
+
+    this.cFile.defaultExists(callbackFunction);
+
+    this.fs.exists = exists;
+  },
+
+
   writeConnections: function(test) {
     var callbackFunction = function() {},
         connections = {
@@ -30,7 +51,7 @@ module.exports = {
       test.strictEqual(arguments[1], '{"connection1":"someData"}');
 
       test.strictEqual(typeof arguments[2], 'function');
-      test.strictEqual(arguments[2].toString(), 'function () {}');
+      test.strictEqual(arguments[2], callbackFunction);
 
       test.done();
     }
