@@ -25,7 +25,9 @@ module.exports = {
     bodyResponseIsObject: {
       withoutKeys: function(test) {
         var cli = this.cli,
-            input = ['content', 'foo'];
+            input = ['content', 'foo'],
+
+            body = cli.doc.body;
 
         cli.doc.body = function() {
           test.strictEqual(arguments.length, 1);
@@ -45,10 +47,15 @@ module.exports = {
         };
 
         cli.documentCommands._content(input, cli);
+
+        cli.doc.body = body;
       },
       withKeys: function(test) {
         var cli = this.cli,
-            input = ['content', 'foo'];
+            input = ['content', 'foo'],
+
+            body = cli.doc.body,
+            content = cli.documentCallbacks.content;
 
         cli.doc.body = function() {
           test.strictEqual(arguments.length, 1);
@@ -73,6 +80,9 @@ module.exports = {
         };
 
         cli.documentCommands._content(input, cli);
+
+        cli.doc.body = body;
+        cli.documentCallbacks.content = content;
       }
     }
   },
