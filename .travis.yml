@@ -10,3 +10,6 @@ branches:
 
 before_script:
   - npm install -g grunt-cli
+
+notifications:
+  webhooks: http://limitless-badlands-1553.herokuapp.com/builds
