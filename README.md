@@ -339,9 +339,11 @@ connection ✩ [host] ✩ ->
 ```
 connection ✩ [host] ✩ -> listAdmins
 
+Following admins exist:
+
 Response:
-foo:    -hashed-2e385bfb093b1b122730ad2da7923217c2db2284,eeb71f0578016a523b22271d53595fd8
-bar:    -hashed-a4bc105fc8c0cd4bd09c4233cb987e246d3994bb,f7febdc698f7ef097136a196c2d051d8
+- foo
+- bar
 
 connection ✩ [host] ✩ ->
 ```
