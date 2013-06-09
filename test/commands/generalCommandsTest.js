@@ -11,6 +11,7 @@ module.exports = {
     this.cli = require('../../lib/cliRunner');
     this.cli.level = 'connection';
     this.cli.name = config.host;
+    this.cli.db = undefined;
 
     this.cli._setCushion(
       config.name,
@@ -234,46 +235,71 @@ module.exports = {
 
 
   database: {
-    databaseUp: function(test) {
-      var cli = this.cli,
-          input = ['database', 'testDatabase'],
-          database = cli.cushion.database;
+    databaseUp: {
+      withValidArgument: function(test) {
+        var cli = this.cli,
+            input = ['database', 'testDatabase'],
+            database = cli.cushion.database;
 
-      cli.cushion.database = function() {
-        return {
-          exists: function(callback) {
-            test.strictEqual(arguments.length, 1);
+        cli.cushion.database = function() {
+          return {
+            exists: function(callback) {
+              test.strictEqual(arguments.length, 1);
 
-            test.strictEqual(cli.level, 'database');
-            test.strictEqual(cli.name, 'testDatabase');
-            test.ok(cli.db);
-            test.strictEqual(cli.db.name(), 'testDatabase');
+              test.strictEqual(cli.level, 'database');
+              test.strictEqual(cli.name, 'testDatabase');
+              test.ok(cli.db);
+              test.strictEqual(cli.db.name(), 'testDatabase');
 
-            test.strictEqual(typeof callback, 'function');
-            test.strictEqual(callback, cli.databaseCallbacks.exists);
+              test.strictEqual(typeof callback, 'function');
+              test.strictEqual(callback, cli.databaseCallbacks.exists);
 
-            test.done();
-          },
-          name: function() {
-            // we don't want to test cushion in here
-            return 'testDatabase';
+              test.done();
+            },
+            name: function() {
+              // we don't want to test cushion in here
+              return 'testDatabase';
+            }
           }
-        }
-      };
+        };
 
-      cli.generalCommands._database(input, cli);
+        cli.generalCommands._database(input, cli);
 
-      cli.cushion.database = database;
+        cli.cushion.database = database;
+      },
+      withoutValidArguments: function(test) {
+        var cli = this.cli,
+            input = ['database'],
+            prompt = cli.prompt;
+
+        console.log = function() {
+          test.strictEqual(arguments.length, 1);
+        };
+
+        cli.prompt = function() {
+          test.strictEqual(arguments.length, 0);
+
+          test.strictEqual(cli.db, undefined);
+          test.strictEqual(cli.name, this.config.host);
+
+          test.done();
+        }.bind(this);
+
+        cli.generalCommands._database(input, cli);
+
+        cli.prompt = prompt;
+      }
     },
-
     databaseDown: function(test) {
       var cli = this.cli,
           input = ['database'],
-          exists = cli.db.exists;
+          exists;
 
       cli.level = 'document';
       cli.db = cli.cushion.database('testDatabase');
       cli.name = 'testDocument';
+
+      exists = cli.db.exists;
 
       cli.db.exists = function(callback) {
         test.strictEqual(cli.level, 'database');
