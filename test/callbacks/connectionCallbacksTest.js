@@ -139,5 +139,64 @@ module.exports = {
       console.pretty = pretty;
       cli.prompt = prompt;
     }
+  },
+
+
+  listDatabases: {
+    errorAppeared: function(test) {
+      var cli = this.cli,
+          error = {
+        error: 'someError'
+      },
+          prompt = cli.prompt,
+          showError = cli.connectionCallbacks.showError;
+
+      cli.connectionCallbacks.showError = function() {
+        test.strictEqual(arguments.length, 1);
+
+        test.strictEqual(typeof arguments[0], 'object');
+        test.strictEqual(arguments[0], error);
+        test.strictEqual(arguments[0].error, 'someError');
+      };
+
+      cli.prompt = function() {
+        test.strictEqual(arguments.length, 0);
+
+        test.done();
+      };
+
+      cli.connectionCallbacks.listDatabases(error);
+
+      cli.prompt = prompt;
+      cli.connectionCallbacks.showError = showError;
+    },
+    noErrorAppeared: function(test) {
+      var cli = this.cli,
+          databases = [{_name: 'foo'}, {_name: 'bar'}],
+          error = null,
+          pretty = console.pretty,
+          prompt = cli.prompt;
+
+      console.pretty = function() {
+        test.strictEqual(arguments.length, 1);
+
+        test.strictEqual(typeof arguments[0], 'object');
+        test.strictEqual(arguments[0] instanceof Array, true);
+        test.strictEqual(arguments[0][0], 'foo');
+        test.strictEqual(arguments[0][1], 'bar');
+        test.strictEqual(arguments[0].length, 2);
+      };
+
+      cli.prompt = function() {
+        test.strictEqual(arguments.length, 0);
+
+        test.done();
+      };
+
+      cli.connectionCallbacks.listDatabases(error, databases);
+
+      cli.prompt = prompt;
+      console.pretty = pretty;
+    }
   }
 };
