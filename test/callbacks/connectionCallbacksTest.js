@@ -82,6 +82,68 @@ module.exports = {
   },
 
 
+  deleteAdmin: {
+    errorAppeared: function(test) {
+      var cli = this.cli,
+          error = {
+        error: 'someError'
+      },
+          prompt = cli.prompt,
+          showError = cli.connectionCallbacks.showError;
+
+      cli.connectionCallbacks.showError = function() {
+        test.strictEqual(arguments.length, 1);
+
+        test.strictEqual(typeof arguments[0], 'object');
+        test.strictEqual(arguments[0], error);
+        test.strictEqual(arguments[0].error, 'someError');
+      };
+
+      cli.prompt = function() {
+        test.strictEqual(arguments.length, 0);
+
+        test.done();
+      };
+
+      cli.connectionCallbacks.deleteAdmin(error);
+
+      cli.prompt = prompt;
+      cli.connectionCallbacks.showError = showError;
+    },
+    noErrorAppeared: function(test) {
+      var cli = this.cli,
+          error = null,
+          pretty = console.pretty,
+          prompt = cli.prompt;
+
+      console.log = function() {
+        test.strictEqual(arguments.length, 1);
+
+        test.strictEqual(typeof arguments[0], 'string');
+        test.strictEqual(arguments[0], this.clc.yellow('Admin was deleted.'));
+      }.bind(this);
+
+      console.pretty = function() {
+        test.strictEqual(arguments.length, 1);
+
+        test.strictEqual(typeof arguments[0], 'boolean');
+        test.strictEqual(arguments[0], true);
+      };
+
+      cli.prompt = function() {
+        test.strictEqual(arguments.length, 0);
+
+        test.done();
+      };
+
+      cli.connectionCallbacks.deleteAdmin(error, true);
+
+      console.pretty = pretty;
+      cli.prompt = prompt;
+    }
+  },
+
+
   listAdmins: {
     errorAppeared: function(test) {
       var cli = this.cli,
