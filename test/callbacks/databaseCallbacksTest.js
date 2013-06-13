@@ -30,6 +30,33 @@ module.exports = {
   },
 
 
+  allDesignDocuments: function(test) {
+    var cli = this.cli,
+        prompt = cli.prompt,
+        pretty = console.pretty,
+        designs = ['someDesign'];
+
+    console.pretty = function() {
+      test.strictEqual(arguments.length, 1);
+      test.strictEqual(typeof arguments[0], 'object');
+      test.strictEqual(arguments[0] instanceof Array, true);
+      test.strictEqual(arguments[0].length, 1);
+      test.strictEqual(arguments[0][0], 'someDesign');
+    };
+
+    cli.prompt = function() {
+      test.strictEqual(arguments.length, 0);
+
+      test.done();
+    };
+
+    cli.databaseCallbacks.allDesignDocuments(designs);
+
+    cli.prompt = prompt;
+    console.pretty = pretty;
+  },
+
+
   create: {
     errorAppeared: function(test) {
       var cli = this.cli,
