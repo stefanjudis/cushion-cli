@@ -57,6 +57,100 @@ module.exports = {
   },
 
 
+  allDocuments: {
+    errorAppeared: function(test) {
+      var cli = this.cli,
+          error = {
+        error: 'error'
+      },
+          prompt = cli.prompt,
+          showError = cli.databaseCallbacks.showError;
+
+      cli.databaseCallbacks.showError = function(errorObject) {
+        test.strictEqual(arguments.length, 1);
+        test.strictEqual(typeof errorObject, 'object');
+        test.strictEqual(errorObject.error, 'error');
+        test.strictEqual(errorObject, error);
+      };
+
+      cli.prompt = function() {
+        test.strictEqual(arguments.length, 0);
+
+        test.done();
+      };
+
+      cli.databaseCallbacks.allDocuments(error);
+
+      cli.prompt = prompt;
+      cli.databaseCallbacks.showError = showError;
+    },
+    noErrorAppeared: function(test) {
+      var allDocuments = ['someDocument'],
+          cli = this.cli,
+          error = null,
+          prompt = cli.prompt,
+          pretty = console.pretty;
+
+      console.pretty = function() {
+        test.strictEqual(arguments.length, 1);
+        test.strictEqual(typeof arguments[0], 'object');
+        test.strictEqual(arguments[0] instanceof Array, true);
+        test.strictEqual(arguments[0][0], 'someDocument');
+        test.strictEqual(arguments[0], allDocuments);
+      };
+
+      cli.prompt = function() {
+        test.strictEqual(arguments.length, 0);
+
+        test.done();
+      };
+
+      cli.databaseCallbacks.create(error, {}, allDocuments);
+
+      cli.prompt = prompt;
+      console.pretty = pretty;
+    }
+  },
+
+
+  allViews: function(test) {
+    var cli = this.cli,
+        prompt = cli.prompt,
+        pretty = console.pretty,
+        log = console.log,
+        views = ['someView'];
+
+    console.log = function() {
+      test.strictEqual(arguments.length, 1);
+      test.strictEqual(typeof arguments[0], 'string');
+      test.strictEqual(
+        arguments[0],
+        'This design document includes of ' + views.length + ' views.'
+      );
+    };
+
+    console.pretty = function() {
+      test.strictEqual(arguments.length, 1);
+      test.strictEqual(typeof arguments[0], 'object');
+      test.strictEqual(arguments[0] instanceof Array, true);
+      test.strictEqual(arguments[0].length, 1);
+      test.strictEqual(arguments[0][0], 'someView');
+    };
+
+    cli.prompt = function() {
+      test.strictEqual(arguments.length, 0);
+
+      test.done();
+    };
+
+    cli.databaseCallbacks.allViews(views);
+
+    cli.prompt = prompt;
+    console.log = log;
+    console.pretty = pretty;
+  },
+
+
   create: {
     errorAppeared: function(test) {
       var cli = this.cli,
