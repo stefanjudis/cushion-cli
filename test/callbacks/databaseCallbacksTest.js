@@ -217,6 +217,64 @@ module.exports = {
   },
 
 
+  designLoaded: {
+    errorAppeared: function(test) {
+      var cli = this.cli,
+          error = {
+        error: 'someError'
+      },
+          prompt = cli.prompt,
+          showError = cli.databaseCallbacks.showError;
+
+      cli.databaseCallbacks.showError = function() {
+        test.strictEqual(arguments.length, 1);
+        test.strictEqual(typeof arguments[0], 'object');
+        test.strictEqual(arguments[0], error);
+      };
+
+      cli.prompt = function() {
+        test.strictEqual(arguments.length, 0);
+
+        test.done();
+      };
+
+      cli.databaseCallbacks.designLoaded(error);
+
+      cli.databaseCallbacks.showError = showError;
+      cli.prompt = prompt;
+    },
+    noErrorAppeared: function(test) {
+      var cli = this.cli,
+          document = {},
+          error = null,
+          allViews = cli.databaseCallbacks.allViews,
+          returnValue = {
+          something: 'something'
+        };
+
+      document.body = function() {
+        test.strictEqual(arguments.length, 1);
+        test.strictEqual(typeof arguments[0], 'string');
+        test.strictEqual(arguments[0], 'views');
+
+        return returnValue;
+      };
+
+      cli.databaseCallbacks.allViews = function() {
+        test.strictEqual(arguments.length, 1);
+
+        test.strictEqual(arguments[0].length, 1);
+        test.strictEqual(arguments[0][0], 'something');
+        test.done();
+      };
+
+      cli.databaseCallbacks.designLoaded(error, document);
+
+      cli.databaseCallbacks.allViews = allViews;
+    }
+  },
+
+
   destroy: {
     errorAppeared: function(test) {
       var cli = this.cli,
