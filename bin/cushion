@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 /*
  * cushion-cli
  * https://github.com/stefanjudis/cushion-cli
@@ -12,19 +14,6 @@ var cli = require('../lib/cliRunner'),
     fs = require('fs'),
     args = process.argv;
 
-if (args.length > 2) {
-  handleArguments( args );
-} else {
-  cli.init();
-}
-
-function handleArguments (args) {
-  args.forEach(function( value ) {
-    if (value === '-v' || value === '-version') {
-      showVersionNumber();
-    }
-  });
-}
 
 function showVersionNumber() {
   fs.readFile(__dirname + '/../package.json', function(error, data) {
@@ -33,3 +22,19 @@ function showVersionNumber() {
     console.log(packageJSON.version);
   })
 }
+
+
+function handleArguments (args) {
+  args.forEach(function( value ) {
+    if (value === '-v' || value === '--version') {
+      showVersionNumber();
+    }
+  });
+}
+
+if (args.length > 2) {
+  handleArguments( args );
+} else {
+  cli.init();
+}
+
