@@ -59,5 +59,52 @@ module.exports = {
     test.strictEqual(result[0], 'test');
 
     test.done();
+  },
+
+
+  parseProcessArguments: {
+    noAdditionalArguments: function(test) {
+      var args = ['node', 'cushion'],
+          result = this.helper.parseProcessArguments(args);
+
+      test.strictEqual(typeof result, 'object');
+      test.strictEqual(Object.keys(result).length, 0);
+
+      test.done();
+    },
+    onlyKeysIncluded: function(test) {
+      var args = ['node', 'cushion', '-v'],
+          result = this.helper.parseProcessArguments(args);
+
+      test.strictEqual(typeof result, 'object');
+      test.strictEqual(Object.keys(result).length, 1);
+
+      test.strictEqual(result.v, true);
+
+      test.done();
+    },
+    onlyKeysAndValuesIncluded: function(test) {
+      var args = ['node', 'cushion', '-h', '127.0.0.1'],
+          result = this.helper.parseProcessArguments(args);
+
+      test.strictEqual(typeof result, 'object');
+      test.strictEqual(Object.keys(result).length, 1);
+
+      test.strictEqual(result.h, '127.0.0.1');
+
+      test.done();
+    },
+    keysAndValuesAndKeysIncluded: function(test) {
+      var args = ['node', 'cushion', '-h', '127.0.0.1', '-v'],
+          result = this.helper.parseProcessArguments(args);
+
+      test.strictEqual(typeof result, 'object');
+      test.strictEqual(Object.keys(result).length, 2);
+
+      test.strictEqual(result.h, '127.0.0.1');
+      test.strictEqual(result.v, true);
+
+      test.done();
+    }
   }
 };
