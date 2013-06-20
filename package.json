@@ -45,10 +45,10 @@
     "cushion"
   ],
   "dependencies": {
-    "cushion": ">= 1.6.3",
-    "cli-color": ">= 0.1.7",
-    "node.extend": "~1.0.0",
+    "cushion": "~1.6.4",
+    "cli-color": "0.2.2",
+    "node.extend": "~1.0.7",
     "prettyjson": "~0.8.1",
-    "npm": "~1.2.25"
+    "npm": "~1.3.0"
   }
 }
