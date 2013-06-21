@@ -24,6 +24,8 @@ Cushion will start with a setup dialog to get information about connection host,
 cushion
 ```
 
+### with version argument
+
 Cushion will show version number and not start the interactive command line tool.
 
 ```
@@ -31,12 +33,16 @@ cushion -v
 cushion --version
 ```
 
+### with host and port defined
+
 Cushion will not show any setup dialog and will try to establish connection with given parameters. In case of failure default setup prompt dialog will be started.
 
 ```
 cushion -h 127.0.0.1 -p 5984
 cushion --host 127.0.0.1 --port 5984
 ```
+
+### with host, port and admin name defined
 
 Cushion will ask for admin password and will try to establish connection with given parameters. In case of failure default setup prompt dialog will be started.
 
@@ -1131,6 +1137,8 @@ user ✩ foo ✩ ->
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
 ## Release History
+- 0.5.1 - only Readme update for new features to have complete docu in npm
+
 - 0.5.0 - new initialization handling of cli tool (setup of connection without prompt dialog)
 
 - 0.4.5 - error handling using domains, better output for listAdmins command, bugfix database command
