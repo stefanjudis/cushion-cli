@@ -1131,6 +1131,8 @@ user ✩ foo ✩ ->
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
 ## Release History
+- 0.5.0 - new initialization handling of cli tool (setup of connection without prompt dialog)
+
 - 0.4.5 - error handling using domains, better output for listAdmins command, bugfix database command
 
 - 0.4.4 - better messages on setup, fix for content command on document level
