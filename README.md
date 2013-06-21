@@ -267,6 +267,8 @@ connection ✩ [host] ✩ ->
 
 **Description:** Delete an existing admin. You have got the possibilities to do in one step or to run a prompt dialog asking for admin name.
 
+**! This command is supported by auto-completion for the wished admin !**
+
 **Examples:**
 
 ```
