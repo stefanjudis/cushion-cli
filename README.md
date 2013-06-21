@@ -14,8 +14,36 @@
 ## Getting Started
 Install the module with: `npm install -g cushion-cli`
 
-After that the global `cushion` command should be available in your terminal. Call it and you will be introduced by the cushion setup for a connection. You will be asked for host, port and if you want to setup a connection as an admin or not. If so you need to enter you admin name and password.
+After that the global `cushion` command should be available in your terminal. You can call it with different arguments.
 
+### without any arguments
+
+Cushion will start with a setup dialog to get information about connection host, port, etc.
+
+```
+cushion
+```
+
+Cushion will show version number and not start the interactive command line tool.
+
+```
+cushion -v
+cushion --version
+```
+
+Cushion will not show any setup dialog and will try to establish connection with given parameters. In case of failure default setup prompt dialog will be started.
+
+```
+cushion -h 127.0.0.1 -p 5984
+cushion --host 127.0.0.1 --port 5984
+```
+
+Cushion will ask for admin password and will try to establish connection with given parameters. In case of failure default setup prompt dialog will be started.
+
+```
+cushion -h 127.0.0.1 -p 5984 -a foo
+cushion --host 127.0.0.1 --port 5984 --admin foo
+```
 
 ## General Commands ( not depending on level and usable all the time ):
 
