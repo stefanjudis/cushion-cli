@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Cushion-cli by stefanjudis</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Cushion-cli</h1>
+          <h2>The command line tool to control your CouchDB.</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/stefanjudis/cushion-cli/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/stefanjudis/cushion-cli/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/stefanjudis/cushion-cli" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <p><img src="https://raw.github.com/stefanjudis/cushion-cli/master/assets/cushion-cli-page-logo.png" alt="cushion logo"></p>
+
+<h2>
+<a name="your-are-a-command-line-hero-and-you-like-couchdb-maybe-cushion-cli-is-something-for-you" class="anchor" href="#your-are-a-command-line-hero-and-you-like-couchdb-maybe-cushion-cli-is-something-for-you"><span class="octicon octicon-link"></span></a>Your are a command line hero. And you like CouchDB. Maybe cushion-cli is something for you.</h2>
+
+<h3>
+<a name="command-line-tool-for-cushion-couchdb-api-it-is-based-on-the-nodejs-couchdb-api-cushion" class="anchor" href="#command-line-tool-for-cushion-couchdb-api-it-is-based-on-the-nodejs-couchdb-api-cushion"><span class="octicon octicon-link"></span></a>Command line tool for cushion CouchDB API. It is based on the node.js CouchDB-Api <a href="https://github.com/Zoddy/cushion">Cushion</a>.</h3>
+
+<h3>
+<a name="introduction-on-youtube" class="anchor" href="#introduction-on-youtube"><span class="octicon octicon-link"></span></a><a href="https://www.youtube.com/watch?v=w5ppOvKwWC0">Introduction on Youtube</a>
+</h3>
+
+<h2>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<p>Install the module with: <code>npm install -g cushion-cli</code></p>
+
+<p>After that the global <code>cushion</code> command should be available in your terminal. You can call it with different arguments.</p>
+
+<h3>
+<a name="without-any-arguments" class="anchor" href="#without-any-arguments"><span class="octicon octicon-link"></span></a>without any arguments</h3>
+
+<p>Cushion will start with a setup dialog to get information about connection host, port, etc.</p>
+
+<pre><code>cushion
+</code></pre>
+
+<h3>
+<a name="with-version-argument" class="anchor" href="#with-version-argument"><span class="octicon octicon-link"></span></a>with version argument</h3>
+
+<p>Cushion will show version number and not start the interactive command line tool.</p>
+
+<pre><code>cushion -v
+cushion --version
+</code></pre>
+
+<h3>
+<a name="with-host-and-port-defined" class="anchor" href="#with-host-and-port-defined"><span class="octicon octicon-link"></span></a>with host and port defined</h3>
+
+<p>Cushion will not show any setup dialog and will try to establish connection with given parameters. In case of failure default setup prompt dialog will be started.</p>
+
+<pre><code>cushion -h 127.0.0.1 -p 5984
+cushion --host 127.0.0.1 --port 5984
+</code></pre>
+
+<h3>
+<a name="with-host-port-and-admin-name-defined" class="anchor" href="#with-host-port-and-admin-name-defined"><span class="octicon octicon-link"></span></a>with host, port and admin name defined</h3>
+
+<p>Cushion will ask for admin password and will try to establish connection with given parameters. In case of failure default setup prompt dialog will be started.</p>
+
+<pre><code>cushion -h 127.0.0.1 -p 5984 -a foo
+cushion --host 127.0.0.1 --port 5984 --admin foo
+</code></pre>
+
+<h2>
+<a name="general-commands--not-depending-on-level-and-usable-all-the-time-" class="anchor" href="#general-commands--not-depending-on-level-and-usable-all-the-time-"><span class="octicon octicon-link"></span></a>General Commands ( not depending on level and usable all the time ):</h2>
+
+<h3>
+<a name="connection" class="anchor" href="#connection"><span class="octicon octicon-link"></span></a>connection</h3>
+
+<p><strong>Description:</strong> Switch to connection level.</p>
+
+<p>No matter at which level you are, you can jump to connection level to use specific commands at this level.</p>
+
+<p>After switching to connection level there will be a few new connection specific commands. So check them out by only pressing <strong>TAB</strong>.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>document ✩ [documentName] ✩ -&gt; connection
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="database-databasename" class="anchor" href="#database-databasename"><span class="octicon octicon-link"></span></a>database [databaseName]</h3>
+
+<p><strong>Description:</strong> Switch to database level.</p>
+
+<p>Jump to database level with command. If you are at connection level you need to set up a name. That means if you want to set up a new database switch the new name only and call the <code>create</code> command afterwards. If you want to work with an existing one type in database and enter first letter and press <strong>TAB</strong> . </p>
+
+<p><strong>! This command is supported by auto-completion !</strong></p>
+
+<p>After switching to database level there will be a few new database specific commands. So check them out by only pressing <strong>TAB</strong>.</p>
+
+<p>If you are at document level use this command to go back to database level. Alternatively you could use <code>..</code>.</p>
+
+<p><strong>Examples:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; database [databaseName]
+database ✩ [databaseName] ✩ -&gt;
+</code></pre>
+
+<pre><code>document ✩ [documentName] ✩ -&gt; database
+database ✩ [databaseName] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="exit" class="anchor" href="#exit"><span class="octicon octicon-link"></span></a>exit</h3>
+
+<p><strong>Description:</strong> Stop cushion and to something else.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>conncetion ✩ [host] ✩ -&gt; exit
+Bye bye - happy couching
+</code></pre>
+
+<h3>
+<a name="help-command" class="anchor" href="#help-command"><span class="octicon octicon-link"></span></a>help [command]</h3>
+
+<p><strong>Description:</strong> Look for help for specific command.</p>
+
+<p><strong>This command is level specific!</strong> It will only show you the help messages for commands available on your current level (connection, database, document, user). To check which commands are available for some help (if you find something that is missing, <a href="mailto:stefanjudis@gmail.com">please drop me a line</a>) enter <code>help</code>and press <strong>TAB</strong>. </p>
+
+<p><strong>! This command is supported by auto-completion !</strong></p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; help version
+
+Get version of connected couchdb.
+
+Command:
+    $ version
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="listdatabases" class="anchor" href="#listdatabases"><span class="octicon octicon-link"></span></a>listDatabases</h3>
+
+<p><strong>Description:</strong> Get list of all databases of current CouchDB connection.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; listDatabases
+
+CouchDB includes the following databases:
+
+Response:
+- _replicator
+- _users
+- foo
+- bar
+- baz
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="listusers" class="anchor" href="#listusers"><span class="octicon octicon-link"></span></a>listUsers</h3>
+
+<p><strong>Description:</strong> Get list of all users of connected CouchDB.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; listUsers
+
+Following users exist:
+
+Response:
+- foo
+- bar
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="user-username" class="anchor" href="#user-username"><span class="octicon octicon-link"></span></a>user [userName]</h3>
+
+<p><strong>Description:</strong> Switch to user level.</p>
+
+<p>Enter a given name for switching either to an existing user or for creating a new one by calling <code>create</code> at user level. To check which users are available to switch to enter <code>user</code>and press <strong>TAB</strong>.</p>
+
+<p><strong>! This command is supported by auto-completion !</strong></p>
+
+<p>After switching to user level there will be a few new user specific commands. So check them out by only pressing <strong>TAB</strong>.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; user [userName]
+user ✩ [userName] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="" class="anchor" href="#"><span class="octicon octicon-link"></span></a>[..]</h3>
+
+<p><strong>Description:</strong> Switch to parent level.</p>
+
+<p>If you are at document level you will switch to database level. Database and user level will switch to connection level. Command at connection level will do nothing.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; ..
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h2>
+<a name="connection-level-commands--connection--host----" class="anchor" href="#connection-level-commands--connection--host----"><span class="octicon octicon-link"></span></a>Connection Level Commands ( "connection ✩ [host] ✩ -&gt;" ):</h2>
+
+<h3>
+<a name="activetaks" class="anchor" href="#activetaks"><span class="octicon octicon-link"></span></a>activeTaks</h3>
+
+<p><strong>Description:</strong> Get list of active tasks.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; activeTasks
+
+Response:
+(empty array)
+
+connection ✩ 127.0.0.1 ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="config-section-option-value" class="anchor" href="#config-section-option-value"><span class="octicon octicon-link"></span></a>config [section] [option] [value]</h3>
+
+<p><strong>Description:</strong> Get or set config information.</p>
+
+<p>The parameters section, option and value are optional. So if you want to retrieve all config information just call <code>config</code> without any parameters. If you want to retrieve config information for a particular section call <code>config [section]</code> and so on. If you want to <strong>set</strong> any config option just set the value as third parameter ( 4th example ).</p>
+
+<p><strong>! This command is supported by auto-completion for section !</strong></p>
+
+<p><strong>Examples:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; config
+
+Response:
+httpd_design_handlers:
+  _info:    {couch_httpd_db,   handle_design_info_req}
+  _list:    {couch_httpd_show, handle_view_list_req}
+  …
+  a lot of fancy information here
+  …
+  util_driver_dir:    /opt/local/lib/couchdb/erlang/lib/couch-1.1.1/priv/lib
+  view_index_dir:     /opt/local/var/lib/couchdb
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<pre><code>connection ✩ [host] ✩ -&gt; config stats
+
+Response:
+rate:    1000
+samples: [0, 60, 300, 900]
+
+connection ✩ host ✩ -&gt;
+</code></pre>
+
+<pre><code>connection ✩ [host] ✩ -&gt; config stats rate
+
+Response:
+1000
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<pre><code>connection ✩ [host] ✩ -&gt; config ssl port 1000
+
+Response:
+true
+
+connection ✩ [host] ✩ -&gt; config ssl port
+
+Response:
+1000
+
+connection ✩ 127.0.0.1 ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="createadmin-name-password" class="anchor" href="#createadmin-name-password"><span class="octicon octicon-link"></span></a>createAdmin [name] [password]</h3>
+
+<p><strong>Description:</strong> Create a new admin. You have got the possibilities to do in one step or to run a prompt dialog asking for name and password.</p>
+
+<p><strong>Examples:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; createAdmin
+What is the name of admin? john
+What is the password for john? fancyPassword
+Admin was created.
+
+Response:
+true
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<pre><code>connection ✩ [host] ✩ -&gt; createAdmin john fancyPassword
+Admin was created.
+
+Response:
+true
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="deleteadmin-name" class="anchor" href="#deleteadmin-name"><span class="octicon octicon-link"></span></a>deleteAdmin [name]</h3>
+
+<p><strong>Description:</strong> Delete an existing admin. You have got the possibilities to do in one step or to run a prompt dialog asking for admin name.</p>
+
+<p><strong>! This command is supported by auto-completion for the wished admin !</strong></p>
+
+<p><strong>Examples:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; deleteAdmin
+What is the name of admin? john
+Admin was deleted.
+
+Response:
+true
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<pre><code>connection ✩ [host] ✩ -&gt; deleteAdmin john
+Admin was deleted.
+
+Response:
+true
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="deleteconnection-nameindex" class="anchor" href="#deleteconnection-nameindex"><span class="octicon octicon-link"></span></a>deleteConnection [name|index]</h3>
+
+<p><strong>Description:</strong> If you set up a new connection you have the possibility to save the connection for later usage. Additional to that you can save connection by calling the <a href="#saveconnection-name">saveConnection</a> command. To delete useless connection from storage use this command.</p>
+
+<p><strong>! This command is supported by auto-completion for the connection name !</strong></p>
+
+<p><strong>Examples:</strong></p>
+
+<pre><code>Connection file found.
+You have the following saved connections:
+
+(1) local -&gt; 127.0.0.1
+(2) foo -&gt; 127.0.0.1
+…
+a lot of fancy information here
+…
+connection ✩ [host] ✩ -&gt; deleteConnection foo
+
+Connection foo deleted.
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<pre><code>Connection file found.
+You have the following saved connections:
+
+(1) local -&gt; 127.0.0.1
+(2) foo -&gt; 127.0.0.1
+…
+a lot of fancy information here
+…
+connection ✩ [host] ✩ -&gt; deleteConnection 2
+
+Connection foo deleted.
+
+connection ✩ [host] ✩ -&gt;
+
+</code></pre>
+
+<h3>
+<a name="listadmins" class="anchor" href="#listadmins"><span class="octicon octicon-link"></span></a>listAdmins</h3>
+
+<p><strong>Description:</strong> Retrieve a list of admins of connected CouchDB.</p>
+
+<p><strong>Examples:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; listAdmins
+
+Following admins exist:
+
+Response:
+- foo
+- bar
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="log-bytes" class="anchor" href="#log-bytes"><span class="octicon octicon-link"></span></a>log [bytes]</h3>
+
+<p><strong>Description:</strong> Retrieve the tail of the server logs of connected CouchDB. Without set bytes param you will get 1000 Bytes of the tail.</p>
+
+<p><strong>Examples:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; log
+
+Response:
+T] [info] [&lt;0.23322.8&gt;] 127.0.0.1 - - 'GET' /_config 200
+[Tue, 12 Mar 2013 21:58:41 GMT] [info] [&lt;0.31614.8&gt;] 127.0.0.1 - - 'GET' / 200
+…
+lot of fancy information here
+…
+[Tue, 12 Mar 2013 22:16:03 GMT] [info] [&lt;0.8336.9&gt;] 127.0.0.1 - - 'GET' / 200
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<pre><code>connection ✩ [host] ✩ -&gt; log 32
+
+Response:
+0.1 - - 'GET' /_log?bytes=8 200
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="restart" class="anchor" href="#restart"><span class="octicon octicon-link"></span></a>restart</h3>
+
+<p><strong>Description:</strong> Restart the CouchDB. You have to be logged in as admin to do so.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; restart
+
+Response:
+ok: true
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="saveconnection-name" class="anchor" href="#saveconnection-name"><span class="octicon octicon-link"></span></a>saveConnection [name]</h3>
+
+<p><strong>Description:</strong> Save the connection for later usage. </p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; saveConnection foo
+
+Connection foo was saved.
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="showconnection" class="anchor" href="#showconnection"><span class="octicon octicon-link"></span></a>showConnection</h3>
+
+<p><strong>Description:</strong> If you are at a new connection and you forgot what the settings was, this command will give you information about current connection.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; showConnection
+
+Your current connection is:
+
+host -&gt; 127.0.0.1
+port -&gt; 5984
+username -&gt; john
+password -&gt; fancyPassword
+secure -&gt; false
+path -&gt; some/path/to/someWhere
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="showconnections" class="anchor" href="#showconnections"><span class="octicon octicon-link"></span></a>showConnections</h3>
+
+<p><strong>Description:</strong> Get a list of all saved connections.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; showConnections
+Connection file found.
+You have the following saved connections:
+
+(1) local -&gt; 127.0.0.1
+(2) foo -&gt; someHost
+(3) bar -&gt; anotherHost
+
+connection ✩ host ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="stats" class="anchor" href="#stats"><span class="octicon octicon-link"></span></a>stats</h3>
+
+<p><strong>Description:</strong> Get server statistics.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; stats
+
+Response:
+couchdb:
+  open_databases:
+    description: number of open databases
+    current:     null
+    sum:         null
+    …
+    a lot of fancy information here
+    …
+    min:         null
+    max:         null
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="uuids-numberofuuids" class="anchor" href="#uuids-numberofuuids"><span class="octicon octicon-link"></span></a>uuids [numberOfUuids]</h3>
+
+<p><strong>Description:</strong> Create CouchDB uuids.</p>
+
+<p><strong>Examples:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; uuids
+
+Response:
+- 4be0aced2a9fba4d4514ceb56e000d6b
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<pre><code>connection ✩ [host] ✩ -&gt; uuids 10
+
+Response:
+- 4be0aced2a9fba4d4514ceb56e001cee
+- 4be0aced2a9fba4d4514ceb56e002286
+- 4be0aced2a9fba4d4514ceb56e003050
+- 4be0aced2a9fba4d4514ceb56e00399e
+- 4be0aced2a9fba4d4514ceb56e003afd
+- 4be0aced2a9fba4d4514ceb56e0045fd
+- 4be0aced2a9fba4d4514ceb56e00510b
+- 4be0aced2a9fba4d4514ceb56e005973
+- 4be0aced2a9fba4d4514ceb56e0067a0
+- 4be0aced2a9fba4d4514ceb56e006be4
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="version" class="anchor" href="#version"><span class="octicon octicon-link"></span></a>version</h3>
+
+<p><strong>Description:</strong> Get version of connected CouchDB.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; version
+
+Response:
+1.1.1
+
+connection ✩ [host] ✩ -&gt;
+</code></pre>
+
+<h2>
+<a name="database-level-commands--database--databasename----" class="anchor" href="#database-level-commands--database--databasename----"><span class="octicon octicon-link"></span></a>Database Level Commands ( "database ✩ [databaseName] ✩ -&gt;" ):</h2>
+
+<h3>
+<a name="alldesigndocuments" class="anchor" href="#alldesigndocuments"><span class="octicon octicon-link"></span></a>allDesignDocuments</h3>
+
+<p><strong>Description:</strong> Get a list of all design documents. The representation is without '_design/' at the beginning, because you have to use it at <code>view</code> command without prefix anyway.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; allDesignDocuments
+This databases includes of 2 design documents.
+
+Response:
+- designFoo
+- designBar
+
+database ✩ [databaseName] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="alldocuments-param1-param2-" class="anchor" href="#alldocuments-param1-param2-"><span class="octicon octicon-link"></span></a>allDocuments [param1] [param2] ...</h3>
+
+<p><strong>Description:</strong> Get a list of all documents given in selected database. Look for all possible param at <a href="http://wiki.apache.org/couchdb/HTTP_Document_API#all_docs">here</a> at query parameters.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; allDocuments
+This databases exists of 10 documents.
+Displayed result has an offset of 0
+
+Response:
+Doc1:            6-841ea3bec41a1ccbf776591dda80e1f9
+Doc2:            14-f65a9da7700c81a73d23985e7fe286b2
+_design/entries: 2-3b756e80956bb0ddff78dbd9a4468a3e
+Doc3:            19-819e98e81df4c835841e51b83749c918
+…
+
+database ✩ [databaseName] ✩ -&gt;
+</code></pre>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; allDocuments limit=3 startkey="_design/entries"
+This databases exists of 10 documents.
+Displayed result has an offset of 2
+
+Response:
+_design/entries: 2-3b756e80956bb0ddff78dbd9a4468a3e
+Doc3:            19-819e98e81df4c835841e51b83749c918
+Doc4:            15-04000ead021dacbcf43a8c8969c5b2f1
+
+database ✩ [databaseName] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="allviews-designname" class="anchor" href="#allviews-designname"><span class="octicon octicon-link"></span></a>allViews [designName]</h3>
+
+<p><strong>Description:</strong> Get a list of views for design document.</p>
+
+<p><strong>! This command is supported by auto-completion for the design name !</strong></p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; allViews foo
+This design document includes of 2 views.
+
+Response:
+- viewBar
+- viewBaz
+
+database ✩ [databaseName] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="cleanup" class="anchor" href="#cleanup"><span class="octicon octicon-link"></span></a>cleanup</h3>
+
+<p><strong>Description:</strong> Start <a href="http://wiki.apache.org/couchdb/HTTP_view_API#View_Cleanup">view cleanup</a> for connected database.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; cleanup
+
+Response:
+true
+
+database ✩ [databaseName] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="compact" class="anchor" href="#compact"><span class="octicon octicon-link"></span></a>compact</h3>
+
+<p><strong>Description:</strong> Start <a href="http://wiki.apache.org/couchdb/Compaction">compaction</a> for connected database.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; compact
+
+Response:
+true
+
+database ✩ [databaseName] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="create" class="anchor" href="#create"><span class="octicon octicon-link"></span></a>create</h3>
+
+<p><strong>Description:</strong> Create new database (if not exist) and set it in CouchDB. You need to be at database level to execute this command. </p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; database foo
+
+Switched to database foo
+
+database ✩ foo ✩ -&gt; create
+
+Database created.
+
+database ✩ foo ✩ -&gt; listDatabases
+
+CouchDB includes the following databases:
+
+Response:
+- _replicator
+- _users
+- db1
+- db2
+- foo
+
+database ✩ foo ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="destroy" class="anchor" href="#destroy"><span class="octicon octicon-link"></span></a>destroy</h3>
+
+<p><strong>Description:</strong> Delete given database and remove it from CouchDB. Switch to database level of an existing database and call <code>destroy</code>command.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; listDatabases
+
+CouchDB includes the following databases:
+
+Response:
+- _replicator
+- _users
+- db1
+- db2
+- foo
+
+connection ✩ [host] ✩ -&gt; database foo
+
+Switched to database foo
+
+database ✩ foo ✩ -&gt; destroy
+
+Database deleted.
+
+Switched to connection level
+
+connection ✩ [host] ✩ -&gt; listDatabases
+
+CouchDB includes the following databases:
+
+Response:
+- _replicator
+- _users
+- db1
+- db2
+
+connection ✩ [host] ✩ -
+</code></pre>
+
+<h3>
+<a name="document-docid" class="anchor" href="#document-docid"><span class="octicon octicon-link"></span></a>document [docId]</h3>
+
+<p><strong>Description:</strong> Switch to document level by ID. If you don't set the ID CouchDB will set it for you later. After switching to document level don't forget to <code>load</code> given document, if you want to access the data.</p>
+
+<p><strong>! This command is supported by auto-completion for the document id !</strong></p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; document doc1
+
+Switched to document level.
+
+document ✩ doc1 ✩ -&gt;
+</code></pre>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; document
+
+Switched to document level.
+
+document ✩ ... ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="ensurefullcommit" class="anchor" href="#ensurefullcommit"><span class="octicon octicon-link"></span></a>ensureFullCommit</h3>
+
+<p><strong>Description:</strong> Saves all uncommited stuff to the disk.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; ensureFullCommit
+
+Response:
+true
+
+database ✩ [databaseName] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="info" class="anchor" href="#info"><span class="octicon octicon-link"></span></a>info</h3>
+
+<p><strong>Description:</strong> Get information about connected database.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; info
+
+Response:
+db_name:              foo
+doc_count:            10
+doc_del_count:        7
+update_seq:           149
+purge_seq:            0
+compact_running:      false
+disk_size:            618587
+instance_start_time:  1363201782697759
+disk_format_version:  5
+committed_update_seq: 149
+
+database ✩ [databaseName] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="tmpview-map-paramsreduce-reduce" class="anchor" href="#tmpview-map-paramsreduce-reduce"><span class="octicon octicon-link"></span></a>tmpView [map] [params|reduce] [reduce]</h3>
+
+<p><strong>Description:</strong> Retrieve a temporary view for given database.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; tmpView 'function(doc) {emit(doc._id, doc);}'
+This databases exists of 10 document.
+Displayed result has an offset of 0.
+
+
+Response:
+-
+  id:    4be0aced2a9fba4d4514ceb56e007a04
+  key:   4be0aced2a9fba4d4514ceb56e007a04
+  value:
+    _id:  4be0aced2a9fba4d4514ceb56e007a04
+    _rev: 1-967a00dff5e02add41819138abb3284d
+-
+  id:    id1
+  key:   key1
+  value:
+    _id:        id1
+    _rev:       6-841ea3bec41a1ccbf776591dda80e1f9
+    name:       foo
+
+database ✩ [databaseName] ✩ -&gt;    
+</code></pre>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; tmpView 'function(doc) {emit(doc._id, doc);}' limit=1
+This databases exists of 10 documents.
+Displayed result has an offset of 0.
+
+
+Response:
+-
+  id:    4be0aced2a9fba4d4514ceb56e007a04
+  key:   4be0aced2a9fba4d4514ceb56e007a04
+  value:
+    _id:  4be0aced2a9fba4d4514ceb56e007a04
+    _rev: 1-967a00dff5e02add41819138abb3284d
+
+database ✩ [databaseName] ✩ -&gt; 
+</code></pre>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; tmpView 'function(doc) {emit(doc._id, doc);}' 'function(keys, values, rereduce){return sum()}'
+This databases exists of undefined documents.
+Displayed result has an offset of undefined.
+
+
+Response:
+-
+  key:   null
+  value: 0
+
+database ✩ [databaseName] ✩ -&gt;
+</code></pre>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; tmpView 'function(doc) {emit(doc._id, doc);}' limit=1 'function(keys, values, rereduce){return sum()}'
+This databases exists of 10 documents.
+Displayed result has an offset of 0.
+
+
+Response:
+-
+  id:    4be0aced2a9fba4d4514ceb56e007a04
+  key:   4be0aced2a9fba4d4514ceb56e007a04
+  value:
+    _id:  4be0aced2a9fba4d4514ceb56e007a04
+    _rev: 1-967a00dff5e02add41819138abb3284d
+
+database ✩ [databaseName] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="view-design-view-param1-param2-" class="anchor" href="#view-design-view-param1-param2-"><span class="octicon octicon-link"></span></a>view [design] [view] [param1] [param2] ...</h3>
+
+<p><strong>Description:</strong> Retrieve a particular view in design document for given database.</p>
+
+<p><strong>Example:</strong> </p>
+
+<pre><code>database ✩ [databaseName] ✩ -&gt; view entries all
+
+This databases exists of 9 documents.
+
+Displayed result has an offset of 0.
+
+Response:
+- id:    document1
+  key:    foo1
+  value:
+    _id:        document1
+    _rev:       6-841ea3bec41a1ccbf776591dda80e1f9
+    bar:        baz
+- id:    document2
+  key:   foo2
+  value:
+    _id:        document1
+    _rev:       6-841ea3bec41a1ccbf776591dda80e1f9
+    bar:       baz
+…
+a lot of fancy information here
+…
+- id:    document5
+  key:   foo5
+  value:
+    _id:        document1
+    _rev:       6-841ea3bec41a1ccbf776591dda80e1f9
+    bar:       baz
+
+database ✩ [databaseName] ✩ -&gt;
+</code></pre>
+
+<h2>
+<a name="document-level-commands--document--documentname----" class="anchor" href="#document-level-commands--document--documentname----"><span class="octicon octicon-link"></span></a>Document Level Commands ( "document ✩ [documentName] ✩ -&gt;" ):</h2>
+
+<h3>
+<a name="content-key-value" class="anchor" href="#content-key-value"><span class="octicon octicon-link"></span></a>content [key] [value]</h3>
+
+<p><strong>Description:</strong> Get or set document body content. Don't forget to save it with <code>save</code> command later on.</p>
+
+<p><strong>! This command is supported by auto-completion for the document body key !</strong></p>
+
+<p><strong>Examples:</strong></p>
+
+<pre><code>document ✩ [docId] ✩ -&gt; content
+
+Response:
+_id:        docId
+name:       someName
+…
+a lot of fancy information here
+…
+foo:        bar
+
+document ✩ [docId] ✩ -&gt;
+</code></pre>
+
+<pre><code>document ✩ [docId] ✩ -&gt; content name
+
+Response:
+someName
+
+document ✩ [docId] ✩ -&gt;
+</code></pre>
+
+<pre><code>document ✩ [docId] ✩ -&gt; content name newName
+
+Property set.
+
+document ✩ [docId] ✩ -&gt; content
+
+Response:
+_id:        docId
+name:       newName
+…
+a lot of fancy information here
+…
+foo:        bar
+
+document ✩ [docId] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="info-1" class="anchor" href="#info-1"><span class="octicon octicon-link"></span></a>info</h3>
+
+<p><strong>Description:</strong> Get info about given document.</p>
+
+<p><strong>Examples:</strong></p>
+
+<pre><code>document ✩ [docId] ✩ -&gt; info
+
+Response:
+revision: 13-8da00c2e8d7b1a0ddc6db934e48b85a1
+size:     448
+
+document ✩ [docId] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="load" class="anchor" href="#load"><span class="octicon octicon-link"></span></a>load</h3>
+
+<p><strong>Description:</strong> Load body of particular document. Before that command your document will be empty.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>document ✩ [docId] ✩ -&gt; info
+
+Response:
+revision: 13-8da00c2e8d7b1a0ddc6db934e48b85a1
+size:     448
+
+document ✩ [docId] ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="save" class="anchor" href="#save"><span class="octicon octicon-link"></span></a>save</h3>
+
+<p><strong>Description:</strong> Save body of particular document to CouchDB.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>document ✩ [docId] ✩ -&gt; save
+
+Document saved.
+
+document ✩ [docId] ✩ -&gt;
+</code></pre>
+
+<h2>
+<a name="user-level-commands--user--username----" class="anchor" href="#user-level-commands--user--username----"><span class="octicon octicon-link"></span></a>User Level Commands ( "user ✩ [userName] ✩ -&gt;" ):</h2>
+
+<h3>
+<a name="addrole-role1-role2-" class="anchor" href="#addrole-role1-role2-"><span class="octicon octicon-link"></span></a>addRole [role1] [role2] ...</h3>
+
+<p><strong>Description:</strong> Add one or more new roles to current user.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>user ✩ foo ✩ -&gt; addRole bar
+
+Role(s) were successfully added.
+
+user ✩ foo ✩ -&gt; getRoles
+
+User has the following roles:
+
+Response:
+- bar
+</code></pre>
+
+<pre><code>user ✩ foo ✩ -&gt; addRole bar1 bar2 bar3
+
+Role(s) were successfully added.
+
+user ✩ foo ✩ -&gt; getRoles
+
+User has the following roles:
+
+Response:
+- bar1
+- bar2
+- bar3
+
+user ✩ foo ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="create-password" class="anchor" href="#create-password"><span class="octicon octicon-link"></span></a>create [password]</h3>
+
+<p><strong>Description:</strong> Create new user. <strong>Password argument optional</strong>. If empty password prompt, will be displayed afterwards.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>connection ✩ [host] ✩ -&gt; user foo
+
+Switched to user foo
+
+user ✩ foo ✩ -&gt; create
+What is the passwort for the user? fancyPassword
+
+User was successfully created.
+
+user ✩ foo ✩ -&gt;
+</code></pre>
+
+<pre><code>connection ✩ [host] ✩ -&gt; user foo
+
+Switched to user foo
+
+user ✩ foo ✩ -&gt; create fancyPassword
+
+User was successfully created.
+
+user ✩ foo ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="delete" class="anchor" href="#delete"><span class="octicon octicon-link"></span></a>delete</h3>
+
+<p><strong>Description:</strong> Delete current user. Level will be switched to connection level afterwards.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>user ✩ foo ✩ -&gt; delete
+
+User was succesfully deleted.
+
+connection ✩ 127.0.0.1 ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="deleterole-role" class="anchor" href="#deleterole-role"><span class="octicon octicon-link"></span></a>deleteRole [role]</h3>
+
+<p><strong>Description:</strong> Delete a particular role of current user.</p>
+
+<p><strong>! This command is supported by auto-completion for the wished role !</strong></p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>user ✩ foo ✩ -&gt; getRoles
+
+User has the following roles:
+
+Response:
+- bar
+
+user ✩ foo ✩ -&gt; deleteRole bar
+
+Role(s) were successfully deleted.
+
+user ✩ foo ✩ -&gt; getRoles
+
+User has the following roles:
+
+Response:
+(empty array)
+
+user ✩ foo ✩ -&gt;
+</code></pre>
+
+<h3>
+<a name="getroles" class="anchor" href="#getroles"><span class="octicon octicon-link"></span></a>getRoles</h3>
+
+<p><strong>Description:</strong> Get all roles of current user.</p>
+
+<p><strong>Example:</strong></p>
+
+<pre><code>user ✩ foo ✩ -&gt; getRoles
+
+User has the following roles:
+
+Response:
+- bar
+- bar2
+- bar3
+
+user ✩ foo ✩ -&gt;
+</code></pre>
+
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using <a href="https://github.com/cowboy/grunt">grunt</a>.</p>
+
+<h2>
+<a name="release-history" class="anchor" href="#release-history"><span class="octicon octicon-link"></span></a>Release History</h2>
+
+<ul>
+<li><p>0.5.1 - only Readme update for new features to have complete docu in npm</p></li>
+<li><p>0.5.0 - new initialization handling of cli tool (setup of connection without prompt dialog)</p></li>
+<li><p>0.4.5 - error handling using domains, better output for listAdmins command, bugfix database command</p></li>
+<li><p>0.4.4 - better messages on setup, fix for content command on document level</p></li>
+<li><p>0.4.3 - connetions defaults.json is now ~/.cushion/defaults.json</p></li>
+<li><p>0.4.2 - safety fix at each level for catching exceptions</p></li>
+<li><p>0.4.1 - npm dependency fix</p></li>
+<li><p>0.4.0 - npm update check</p></li>
+<li><p>0.3.2 - more test coverage, fix content handling on document level, package.json dependency update</p></li>
+<li><p>0.3.1 - bugfixes for 'unsaved star'</p></li>
+<li><p>0.3.0 - much more test coverage, removed databaseCommand 'exists', 'unsaved star' on database|document|user level</p></li>
+<li><p>0.2.9 - added listAdmins call, deleteRole supports autocompletion</p></li>
+<li><p>0.2.8 - more tests, minor bug fixes, implementation of check mark for unsaved document changes</p></li>
+</ul><h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>The MIT License (MIT)</p>
+
+<p>Copyright (c) 2013 stefan judis</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
+        </section>
+
+        <footer>
+          Cushion-cli is maintained by <a href="https://github.com/stefanjudis">stefanjudis</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+                  <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-41947981-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+      </div>
+    </div>
+  </body>
+</html>
