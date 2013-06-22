@@ -2,7 +2,7 @@
   "name": "cushion-cli",
   "description": "Command line tool for CouchDB based on cushion.",
   "version": "0.5.1",
-  "homepage": "https://github.com/stefanjudis/cushion-cli",
+  "homepage": "http://stefanjudis.github.io/cushion-cli",
   "author": {
     "name": "stefan judis",
     "email": "stefanjudis@gmail.com",
