@@ -1137,6 +1137,8 @@ user ✩ foo ✩ ->
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
 ## Release History
+- 0.6.0 - bug fix and error handling for npm stuff
+
 - 0.5.2 - updated package.json to point to new github pages as project homepage
 
 - 0.5.1 - only Readme update for new features to have complete docu in npm
