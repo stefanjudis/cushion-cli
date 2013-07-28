@@ -70,6 +70,10 @@ module.exports = {
       test.strictEqual(typeof result, 'object');
       test.strictEqual(Object.keys(result).length, 0);
 
+      test.strictEqual(args.length, 2);
+      test.strictEqual(args[0], 'node');
+      test.strictEqual(args[1], 'cushion');
+
       test.done();
     },
     onlyKeysIncluded: function(test) {
@@ -80,6 +84,11 @@ module.exports = {
       test.strictEqual(Object.keys(result).length, 1);
 
       test.strictEqual(result.v, true);
+
+      test.strictEqual(args.length, 3);
+      test.strictEqual(args[0], 'node');
+      test.strictEqual(args[1], 'cushion');
+      test.strictEqual(args[2], '-v');
 
       test.done();
     },
@@ -92,6 +101,12 @@ module.exports = {
 
       test.strictEqual(result.h, '127.0.0.1');
 
+      test.strictEqual(args.length, 4);
+      test.strictEqual(args[0], 'node');
+      test.strictEqual(args[1], 'cushion');
+      test.strictEqual(args[2], '-h');
+      test.strictEqual(args[3], '127.0.0.1');
+
       test.done();
     },
     keysAndValuesAndKeysIncluded: function(test) {
@@ -103,6 +118,13 @@ module.exports = {
 
       test.strictEqual(result.h, '127.0.0.1');
       test.strictEqual(result.v, true);
+
+      test.strictEqual(args.length, 5);
+      test.strictEqual(args[0], 'node');
+      test.strictEqual(args[1], 'cushion');
+      test.strictEqual(args[2], '-h');
+      test.strictEqual(args[3], '127.0.0.1');
+      test.strictEqual(args[4], '-v');
 
       test.done();
     }
