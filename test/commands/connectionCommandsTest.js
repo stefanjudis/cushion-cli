@@ -308,6 +308,121 @@ module.exports = {
   },
 
 
+  _deleteConnection: function(test) {
+    var cli = this.cli,
+        input = ['connectionName1', '2', 'connectionName3'],
+        deleteConnectionWithIndex = cli.connectionCommands.__deleteConnectionWithIndex,
+        withIndexCount = 0,
+        deleteConnectionWithName = cli.connectionCommands.__deleteConnectionWithName,
+        withNameCount = 0,
+        deleteConnectionWrite = cli.connectionCommands.__deleteConnectionWrite;
+
+    cli.connectionCommands.__deleteConnectionWithIndex = function() {
+      ++withIndexCount;
+    };
+
+    cli.connectionCommands.__deleteConnectionWithName = function() {
+      ++withNameCount;
+    };
+
+    cli.connectionCommands.__deleteConnectionWrite = function() {
+      test.strictEqual(withIndexCount, 1);
+      test.strictEqual(withNameCount,2);
+      test.strictEqual(arguments[0], 'connectionName1, 2, connectionName3');
+
+      test.done();
+    }
+
+    cli.connectionCommands.__deleteConnection(input, cli);
+
+    cli.connectionCommands.__deleteConnectionWithIndex = deleteConnectionWithIndex;
+    cli.connectionCommands.__deleteConnectionWithName = deleteConnectionWithName;
+    cli.connectionCommands.__deleteConnectionWrite = deleteConnectionWrite;
+  },
+
+
+  _deleteConnectionWithIndex: {
+    connectionExists: function(test) {
+      var cli = this.cli,
+          deleteConnectionWithName = cli.connectionCommands.__deleteConnectionWithName;
+
+      cli.connections = {
+        connection1 : 'connection1'
+      }
+
+      cli.connectionCommands.__deleteConnectionWithName = function() {
+        test.strictEqual(arguments.length, 2);
+        test.strictEqual(arguments[0], 'connection1');
+
+        test.done();
+      };
+
+      cli.connectionCommands.__deleteConnectionWithIndex(1, 0, cli);
+
+      cli.connectionCommands.__deleteConnectionWithName = deleteConnectionWithName;
+    },
+    connectionDoesntExist: function(test) {
+      var cli = this.cli,
+          log = console.log
+
+      cli.connections = {
+        connection1 : 'connection1'
+      }
+
+      console.log = function() {
+        test.strictEqual(arguments.length, 1);
+
+        test.done();
+      };
+
+      cli.connectionCommands.__deleteConnectionWithIndex(2, 0, cli);
+
+      console.log = log;
+    }
+  },
+
+
+  _deleteConnectionWithName: {
+    connectionExists: function(test) {
+      var cli = this.cli;
+
+      cli.connections = {
+        connection1 : 'connection1',
+        connection2 : 'connection2'
+      }
+
+      cli.connectionCommands.__deleteConnectionWithName('connection1', cli);
+
+      test.strictEqual(Object.keys(cli.connections).length, 1);
+      test.strictEqual(cli.connections.connection1, undefined);
+      test.strictEqual(cli.connections.connection2, 'connection2');
+
+      test.done();
+    },
+    connectionDoesntExist: function(test) {
+      var cli = this.cli,
+          log = console.log;
+
+      cli.connections = {
+        connection1 : 'connection1',
+        connection2 : 'connection2'
+      }
+
+      console.log = function() {
+        test.strictEqual(Object.keys(cli.connections).length, 2);
+        test.strictEqual(cli.connections.connection1, 'connection1');
+        test.strictEqual(cli.connections.connection2, 'connection2');
+
+        test.done();
+      }
+
+      cli.connectionCommands.__deleteConnectionWithName('connection3', cli);
+
+      console.log = log;
+    }
+  },
+
+
   listAdmins: function(test) {
     var cli = this.cli,
         input = ['listAdmins'];
