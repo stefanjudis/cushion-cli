@@ -325,9 +325,9 @@ true
 
 connection ✩ [host] ✩ ->
 ```
-### deleteConnection [name|index]
+### deleteConnection [name|index] [name|index] ...
 
-**Description:** If you set up a new connection you have the possibility to save the connection for later usage. Additional to that you can save connection by calling the [saveConnection](#saveconnection-name) command. To delete useless connection from storage use this command.
+**Description:** If you set up a new connection you have the possibility to save the connection for later usage. Additional to that you can save connection by calling the [saveConnection](#saveconnection-name) command. To delete useless connections from storage use this command.
 
 **! This command is supported by auto-completion for the connection name !**
 
@@ -364,6 +364,45 @@ Connection foo deleted.
 
 connection ✩ [host] ✩ ->
 
+```
+
+```
+onnection file found.
+
+You have the following saved connections:
+
+(1) local -> 127.0.0.1
+(2) test1 -> 127.0.0.1
+(3) test2 -> 127.0.0.1
+(4) test3 -> 127.0.0.1
+(5) test4 -> 127.0.0.1
+(6) test5 -> 127.0.0.1
+…
+a lot of fancy information here
+…Yeah! You are now connected to 127.0.0.1:5984!
+
+connection ✩ [host] ✩ -> deleteConnection test1 test3 test5
+
+Connection(s) test1, test3, test5 deleted.
+
+connection ✩ [host] ✩ ->
+```
+
+```
+Connection file found.
+
+You have the following saved connections:
+
+(1) local -> 127.0.0.1
+(2) test2 -> 127.0.0.1
+(3) test4 -> 127.0.0.1
+(4) test3 -> 127.0.0.1
+
+connection ✩ [host] ✩ -> deleteConnection 2 4
+
+Connection(s) 2, 4 deleted.
+
+connection ✩ [host] ✩ ->
 ```
 
 ### listAdmins
@@ -1137,6 +1176,8 @@ user ✩ foo ✩ ->
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
 ## Release History
+- 0.6.1 - added possibility to delete multiple connections with one ```deleteConnection``` call
+
 - 0.6.0 - bug fix and error handling for npm stuff
 
 - 0.5.2 - updated package.json to point to new github pages as project homepage
